@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketX - Agent Registration</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #001f3f; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: white; }
+        .register-box { background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 20px; backdrop-filter: blur(10px); width: 350px; text-align: center; border: 1px solid rgba(255,255,255,0.2); margin: 20px; }
+        .logo { font-size: 28px; font-weight: bold; margin-bottom: 20px; }
+        .logo span { color: #007bff; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; background: rgba(255,255,255,0.9); box-sizing: border-box; }
+        .btn-register { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 16px; }
+        .footer-links { margin-top: 20px; font-size: 14px; }
+        a { color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="register-box">
+        <div class="logo">Market<span>X</span></div>
+        <p>Become an Agent</p>
+        <form onsubmit="alert('မှတ်ပုံတင်ခြင်း အောင်မြင်ပါသည်။ Login ပြန်ဝင်ပေးပါ။'); window.location.href='index.html'; return false;">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email Address" required>
+            <input type="text" placeholder="Phone Number" required>
+            <input type="password" placeholder="Create Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+            <button type="submit" class="btn-register">Register Now</button>
+        </form>
+        <div class="footer-links">
+            Already have an account? <a href="index.html">Login here</a>
+        </div>
+    </div>
+</body>
+</html>
