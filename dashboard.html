@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketX - Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding: 0; color: #333; }
+        .header { background: #001f3f; color: white; padding: 30px 20px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .balance-card { background: white; margin: -40px 20px 20px 20px; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; }
+        .balance-label { font-size: 14px; color: #666; font-weight: 500; }
+        .balance-amount { font-size: 36px; font-weight: bold; color: #001f3f; margin: 10px 0; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px; margin-bottom: 80px; }
+        .stat-box { background: white; padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .stat-label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-value { font-size: 20px; font-weight: bold; color: #007bff; margin-top: 8px; }
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #ddd; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        .nav-item { font-size: 12px; color: #666; text-decoration: none; text-align: center; flex: 1; }
+        .btn-withdraw { background: #007bff; color: white; border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-withdraw:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2 style="margin: 0; letter-spacing: 1px;">MarketX</h2>
+        <p style="opacity: 0.8; font-size: 14px; margin-top: 5px;">Agent ID: MX-99821</p>
+    </div>
+
+    <div class="balance-card">
+        <div class="balance-label">Total Wallet Balance</div>
+        <div class="balance-amount">$5,240.50</div>
+        <button class="btn-withdraw">Withdraw Funds</button>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-box">
+            <div class="stat-label">Daily Earnings</div>
+            <div class="stat-value">+$125.00</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Active Orders</div>
+            <div class="stat-value">12</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Commission Rate</div>
+            <div class="stat-value">15%</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-label">Team Size</div>
+            <div class="stat-value">48</div>
+        </div>
+        <div class="stat-box" style="grid-column: span 2; background: #e7f3ff; border: 1px solid #b3d7ff;">
+            <div class="stat-label" style="color: #0056b3;">Total Team Commission</div>
+            <div class="stat-value" style="color: #0056b3; font-size: 24px;">$2,450.00</div>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <a href="#" class="nav-item" style="color: #007bff;">🏠<br>Home</a>
+        <a href="#" class="nav-item">🛒<br>Market</a>
+        <a href="#" class="nav-item">💬<br>Chat</a>
+        <a href="index.html" class="nav-item">🚪<br>Logout</a>
+    </div>
+
+</body>
+</html>
