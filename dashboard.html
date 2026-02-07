@@ -8,13 +8,14 @@
         body { font-family: 'Segoe UI', sans-serif; background: #f4f7f9; margin: 0; padding-bottom: 80px; }
         .top-nav { background: #001f3f; color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; }
         .product-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
-        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; position: relative; }
-        .img-placeholder { width: 100%; height: 130px; background: #e9ecef; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #adb5bd; }
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        /* ပုံအရွယ်အစား ညှိရန် */
+        .product-img { width: 100%; height: 150px; object-fit: cover; background: #eee; }
         .details { padding: 12px; }
         .title { font-size: 14px; font-weight: bold; margin: 0; color: #333; }
         .price { color: #007bff; font-size: 16px; font-weight: bold; margin: 5px 0; }
         .commission { display: inline-block; background: #d1e7dd; color: #0f5132; font-size: 11px; padding: 3px 8px; border-radius: 5px; font-weight: 500; }
-        .buy-btn { width: 100%; background: #001f3f; color: white; border: none; padding: 10px; margin-top: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+        .buy-btn { width: 100%; background: #001f3f; color: white; border: none; padding: 10px; margin-top: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold; }
         .bottom-menu { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; }
         .menu-item { text-decoration: none; color: #666; font-size: 12px; text-align: center; }
     </style>
@@ -27,7 +28,7 @@
 
     <div class="product-container">
         <div class="card">
-            <div class="img-placeholder">Product Image</div>
+            <img src="https://images.unsplash.com/photo-1696446701796-da61225697cc?q=80&w=500" alt="iPhone 15" class="product-img">
             <div class="details">
                 <p class="title">iPhone 15 Pro</p>
                 <p class="price">$999.00</p>
@@ -37,7 +38,7 @@
         </div>
 
         <div class="card">
-            <div class="img-placeholder">Product Image</div>
+            <img src="https://images.unsplash.com/photo-1544117518-30dd0f787a3b?q=80&w=500" alt="Smart Watch" class="product-img">
             <div class="details">
                 <p class="title">Smart Watch Ultra</p>
                 <p class="price">$250.00</p>
@@ -55,8 +56,7 @@
 
     <script>
         function orderNow(itemName) {
-            alert(itemName + " ကို ဝယ်ယူဖို့အတွက် Customer Service ကို စာပို့ပေးပါ။");
-            // နောင်တွင် ဒီနေရာမှာ တိုက်ရိုက် Chat ပေါက်ပွင့်အောင် လုပ်လို့ရပါတယ်
+            alert(itemName + " အတွက် Order တင်ရန် Customer Service ကို ဆက်သွယ်ပါ။");
         }
     </script>
 
