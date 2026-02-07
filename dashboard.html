@@ -9,15 +9,13 @@
         .top-nav { background: #001f3f; color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; }
         .product-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
         .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; }
-        /* ပုံအရွယ်အစား ညှိရန် */
         .product-img { width: 100%; height: 150px; object-fit: cover; background: #eee; }
         .details { padding: 12px; }
         .title { font-size: 14px; font-weight: bold; margin: 0; color: #333; }
         .price { color: #007bff; font-size: 16px; font-weight: bold; margin: 5px 0; }
-        .commission { display: inline-block; background: #d1e7dd; color: #0f5132; font-size: 11px; padding: 3px 8px; border-radius: 5px; font-weight: 500; }
-        .buy-btn { width: 100%; background: #001f3f; color: white; border: none; padding: 10px; margin-top: 10px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: bold; }
+        .commission { display: inline-block; background: #d1e7dd; color: #0f5132; font-size: 11px; padding: 3px 8px; border-radius: 5px; }
+        .buy-btn { width: 100%; background: #001f3f; color: white; border: none; padding: 10px; margin-top: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; }
         .bottom-menu { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #eee; }
-        .menu-item { text-decoration: none; color: #666; font-size: 12px; text-align: center; }
     </style>
 </head>
 <body>
@@ -28,35 +26,49 @@
 
     <div class="product-container">
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1696446701796-da61225697cc?q=80&w=500" alt="iPhone 15" class="product-img">
+            <img src="https://images.unsplash.com/photo-1696446701796-da61225697cc?q=80&w=500" class="product-img">
             <div class="details">
                 <p class="title">iPhone 15 Pro</p>
                 <p class="price">$999.00</p>
                 <span class="commission">Earn: $45.00</span>
-                <button class="buy-btn" onclick="orderNow('iPhone 15 Pro')">Order Now</button>
+                <button class="buy-btn" onclick="sendOrder('iPhone 15 Pro', '$999.00')">Order Now</button>
             </div>
         </div>
 
         <div class="card">
-            <img src="https://images.unsplash.com/photo-1544117518-30dd0f787a3b?q=80&w=500" alt="Smart Watch" class="product-img">
+            <img src="https://images.unsplash.com/photo-1544117518-30dd0f787a3b?q=80&w=500" class="product-img">
             <div class="details">
                 <p class="title">Smart Watch Ultra</p>
                 <p class="price">$250.00</p>
                 <span class="commission">Earn: $12.50</span>
-                <button class="buy-btn" onclick="orderNow('Smart Watch Ultra')">Order Now</button>
+                <button class="buy-btn" onclick="sendOrder('Smart Watch Ultra', '$250.00')">Order Now</button>
             </div>
         </div>
     </div>
 
     <div class="bottom-menu">
-        <a href="#" class="menu-item" style="color:#007bff;">🏠<br>Home</a>
-        <a href="#" class="menu-item">📊<br>Report</a>
-        <a href="index.html" class="menu-item">🚪<br>Logout</a>
+        <a href="#" style="text-decoration:none;">🏠 Home</a>
+        <a href="index.html" style="text-decoration:none;">🚪 Logout</a>
     </div>
 
     <script>
-        function orderNow(itemName) {
-            alert(itemName + " အတွက် Order တင်ရန် Customer Service ကို ဆက်သွယ်ပါ။");
+        function sendOrder(itemName, itemPrice) {
+            // --- ပြင်ဆင်ရန်နေရာ (စောစောက Token နဲ့ ID ကိုပဲ ပြန်ထည့်ပါ) ---
+            const token = "ဒီနေရာမှာ_သင့်ရဲ့_Bot_Token_ထည့်ပါ"; 
+            const chat_id = "ဒီနေရာမှာ_သင့်ရဲ့_Chat_ID_ထည့်ပါ";
+            // --------------------------------------------------
+
+            const message = `🛒 အော်ဒါအသစ် ရရှိပါသည် \n\n📦 ပစ္စည်း: ${itemName} \n💰 ဈေးနှုန်း: ${itemPrice} \n✅ အခြေအနေ: စစ်ဆေးရန်လိုအပ်သည်`;
+
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
+
+            fetch(url).then(response => {
+                if(response.ok) {
+                    alert(itemName + " အတွက် အော်ဒါတင်ခြင်း အောင်မြင်ပါသည်။");
+                } else {
+                    alert("အမှားအယွင်းတစ်ခု ရှိနေပါသည်။");
+                }
+            });
         }
     </script>
 
