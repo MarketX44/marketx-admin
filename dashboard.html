@@ -53,7 +53,7 @@
 
     <div class="section-title">Available Products</div>
 
-    <div class="product-grid">
+   <div class="product-grid">
         <div class="card">
             <img src="https://images.unsplash.com/photo-1696446701796-da61225697cc?q=80&w=500" class="product-img">
             <div class="details">
@@ -62,6 +62,34 @@
                 <button class="buy-btn" onclick="sendOrder('iPhone 15 Pro', '$999')">Order Now</button>
             </div>
         </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1544117518-30dd0f787a3b?q=80&w=500" class="product-img">
+            <div class="details">
+                <div style="font-size:14px; font-weight:bold;">Watch Ultra</div>
+                <div style="color:var(--accent); font-weight:bold;">$250</div>
+                <button class="buy-btn" onclick="sendOrder('Watch Ultra', '$250')">Order Now</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=500" class="product-img">
+            <div class="details">
+                <div style="font-size:14px; font-weight:bold;">Premium Headphone</div>
+                <div style="color:var(--accent); font-weight:bold;">$150</div>
+                <button class="buy-btn" onclick="sendOrder('Headphone', '$150')">Order Now</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=500" class="product-img">
+            <div class="details">
+                <div style="font-size:14px; font-weight:bold;">Smart Sunglasses</div>
+                <div style="color:var(--accent); font-weight:bold;">$80</div>
+                <button class="buy-btn" onclick="sendOrder('Sunglasses', '$80')">Order Now</button>
+            </div>
+        </div>
+    </div>
 
         <div class="card">
             <img src="https://images.unsplash.com/photo-1544117518-30dd0f787a3b?q=80&w=500" class="product-img">
@@ -82,8 +110,8 @@
     <script>
         function sendOrder(name, price) {
             // သင့်ရဲ့ Token နဲ့ ID ကို အောက်မှာ ပြန်ထည့်ပါ
-            const token = "ဒီမှာ_သင့်ရဲ့_Bot_Token_ထည့်ပါ";
-            const chat_id = "ဒီမှာ_သင့်ရဲ့_Chat_ID_ထည့်ပါ";
+            const token = "8444757495:AAG6kOwh8r_hHFyyRWcXctnK0Ym1Z7pKbzU";
+            const chat_id = "6698333806";
             
             const message = `🎯 Order Received!\nItem: ${name}\nPrice: ${price}`;
             const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
@@ -96,3 +124,4 @@
 
     </body>
 </html>
+
