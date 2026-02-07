@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketX - Withdraw</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f9; margin: 0; padding: 20px; }
+        .container { max-width: 400px; margin: auto; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h2 { color: #001f3f; text-align: center; }
+        label { display: block; margin-top: 15px; font-weight: bold; color: #555; }
+        input, select { width: 100%; padding: 12px; margin-top: 5px; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; }
+        .btn-withdraw { width: 100%; padding: 15px; background: #ff4757; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 16px; }
+        .back-btn { display: block; text-align: center; margin-top: 15px; color: #666; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Withdraw Money</h2>
+    <form id="withdrawForm">
+        <label>Agent Name</label>
+        <input type="text" id="agentName" placeholder="သင့်နာမည်ရိုက်ပါ" required>
+
+        <label>Withdraw Amount ($)</label>
+        <input type="number" id="amount" placeholder="ထုတ်ယူမည့် ပမာဏ" required>
+
+        <label>Payment Method</label>
+        <select id="method">
+            <option value="KPay">KPay</option>
+            <option value="Wave Money">Wave Money</option>
+            <option value="KBZ Bank">KBZ Bank</option>
+        </select>
+
+        <label>Account / Phone Number</label>
+        <input type="text" id="accountNo" placeholder="ငွေလက်ခံမည့် ဖုန်း/အကောင့်" required>
+
+        <button type="submit" class="btn-withdraw">Submit Request</button>
+    </form>
+    <a href="dashboard.html" class="back-btn">← Back to Mall</a>
+</div>
+
+<script>
+    document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // --- ပြင်ဆင်ရန်နေရာ ---
+        const token = "ဒီမှာ_သင့်ရဲ့_Bot_Token_ထည့်ပါ"; 
+        const chat_id = "ဒီမှာ_သင့်ရဲ့_Chat_ID_ထည့်ပါ";
+        // ---------------------
+
+        const name = document.getElementById('agentName').value;
+        const amount = document.getElementById('amount').value;
+        const method = document.getElementById('method').value;
+        const account = document.getElementById('accountNo').value;
+
+        const message = `💰 ငွေထုတ်ရန် တောင်းဆိုချက် \n\n👤 အေးဂျင့်: ${name} \n💵 ပမာဏ: $${amount} \n💳 နည်းလမ်း: ${method} \n📱 အကောင့်: ${account}`;
+
+        const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
+
+        fetch(url).then(response => {
+            if(response.ok) {
+                alert("ငွေထုတ်ရန် တောင်းဆိုမှု တင်ပြပြီးပါပြီ။ ၂၄ နာရီအတွင်း စစ်ဆေးပေးပါမည်။");
+                window.location.href = "dashboard.html";
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
