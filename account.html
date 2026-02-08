@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | MarketX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .menu-item { display: flex; align-items: center; justify-content: space-between; padding: 15px; background: white; border-bottom: 1px solid #f3f4f6; transition: background 0.2s; }
+        .menu-item:active { background: #f9fafb; }
+    </style>
+</head>
+<body class="bg-[#f7f8fa] pb-24">
+
+    <div class="bg-gradient-to-r from-blue-800 to-blue-600 p-6 text-white pb-12">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="w-16 h-16 bg-white/20 rounded-full border-2 border-white/50 flex items-center justify-center text-2xl">👤</div>
+            <div>
+                <h2 class="text-xl font-bold">ad009@qq.com</h2>
+                <p class="text-xs bg-orange-500 inline-block px-2 py-0.5 rounded-full">VIP Level 2</p>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/10 p-4 rounded-2xl backdrop-blur-sm">
+                <p class="text-[10px] opacity-70 uppercase tracking-wider">Available Balance</p>
+                <p class="text-xl font-black">$0.00</p>
+            </div>
+            <div class="bg-white/10 p-4 rounded-2xl backdrop-blur-sm">
+                <p class="text-[10px] opacity-70 uppercase tracking-wider">Pending Balance</p>
+                <p class="text-xl font-black">$0.00</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex gap-3 px-6 -mt-6">
+        <button class="flex-1 bg-white py-4 rounded-2xl shadow-lg flex items-center justify-center gap-2 font-bold text-blue-800 active:scale-95 transition">
+            <span>📥</span> Recharge
+        </button>
+        <button class="flex-1 bg-white py-4 rounded-2xl shadow-lg flex items-center justify-center gap-2 font-bold text-blue-800 active:scale-95 transition">
+            <span>📤</span> Withdraw
+        </button>
+    </div>
+
+    <div class="mt-8 px-4">
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+            <a href="#" class="menu-item">
+                <div class="flex items-center gap-3"><span class="text-lg">👤</span> <span class="text-sm font-medium">Profile</span></div>
+                <span class="text-gray-400">❯</span>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="flex items-center gap-3"><span class="text-lg">⚙️</span> <span class="text-sm font-medium">Withdrawal Setting</span></div>
+                <span class="text-gray-400">❯</span>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="flex items-center gap-3"><span class="text-lg">📊</span> <span class="text-sm font-medium">Financial Statements</span></div>
+                <span class="text-gray-400">❯</span>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="flex items-center gap-3"><span class="text-lg">📝</span> <span class="text-sm font-medium">Credit Application</span></div>
+                <span class="text-gray-400">❯</span>
+            </a>
+            <a href="#" class="menu-item">
+                <div class="flex items-center gap-3"><span class="text-lg">🏆</span> <span class="text-sm font-medium">Store Level</span></div>
+                <span class="text-gray-400">❯</span>
+            </a>
+        </div>
+
+        <button onclick="signOut()" class="w-full mt-6 py-4 bg-white text-red-500 font-bold rounded-2xl shadow-sm active:scale-95 transition">
+            Sign Out
+        </button>
+    </div>
+
+    <nav class="fixed bottom-0 w-full bg-white border-t flex justify-around py-4">
+        <a href="dashboard.html" class="text-gray-400 text-center">🏠<br><span class="text-[10px]">Home</span></a>
+        <a href="commodity.html" class="text-gray-400 text-center">📦<br><span class="text-[10px]">Commodity</span></a>
+        <a href="order.html" class="text-gray-400 text-center">📋<br><span class="text-[10px]">Orders</span></a>
+        <a href="account.html" class="text-blue-700 text-center">👤<br><span class="text-[10px]">Account</span></a>
+    </nav>
+
+    <script>
+        function signOut() {
+            if(confirm("Are you sure you want to sign out?")) {
+                window.location.href = "index.html";
+            }
+        }
+    </script>
+</body>
+</html>
