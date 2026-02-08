@@ -7,79 +7,77 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .swiper-pagination-bullet-active { background: #1e40af !important; }
+        .noti-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: red; border-radius: 50%; display: none; }
+        .is-active .noti-dot { display: block; }
+        #verifyModal { backdrop-filter: blur(5px); }
     </style>
 </head>
 <body class="bg-[#f8f9fb] pb-24">
 
-    <div class="bg-white px-4 py-3 flex justify-between items-center shadow-sm">
-        <h1 class="text-xl font-black text-blue-800 italic">MARKET <span class="text-orange-500">X</span></h1>
-        <div class="flex gap-3">
-            <span class="text-xl">🔔</span>
+    <div class="bg-white px-4 py-3 flex justify-between items-center shadow-sm sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <div id="shopLogoContainer" class="w-10 h-10 rounded-full border border-gray-100 overflow-hidden flex items-center justify-center bg-gray-50">
+                <img id="headerLogo" src="https://i.ibb.co/VWVf60D/marketx-logo.png" class="w-8 h-8 object-contain">
+            </div>
+            <div>
+                <h1 class="text-sm font-black text-blue-800 italic leading-none">MARKET <span class="text-orange-500">X</span></h1>
+                <button onclick="openVerifyModal()" id="verifyBadge" class="mt-1 text-[10px] font-bold text-orange-500 flex items-center gap-1">
+                    ● Unverified <span class="text-[8px] font-normal underline">(Click to verify)</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="flex gap-4">
+            <button class="relative is-active" onclick="location.href='message.html'">
+                <span class="text-xl">💬</span>
+                <div class="noti-dot"></div>
+            </button>
+            <button class="relative" onclick="alert('No new notifications')">
+                <span class="text-xl">🔔</span>
+                <div class="noti-dot"></div>
+            </button>
+            <button onclick="window.open('https://t.me/your_service', '_blank')" class="text-xl">🎧</button>
         </div>
     </div>
 
     <div class="swiper mySwiper m-4 rounded-2xl overflow-hidden shadow-md">
         <div class="swiper-wrapper">
             <div class="swiper-slide"><img src="https://img.freepik.com/free-vector/horizontal-banner-online-fashion-shopping-with-woman_23-2148585404.jpg" class="w-full h-40 object-cover"></div>
-            <div class="swiper-slide"><img src="https://img.freepik.com/free-vector/ecommerce-web-page-concept-illustration_114360-8204.jpg" class="w-full h-40 object-cover"></div>
             <div class="swiper-slide"><img src="https://img.freepik.com/free-vector/flat-sale-background-concept_23-2148658145.jpg" class="w-full h-40 object-cover"></div>
         </div>
         <div class="swiper-pagination"></div>
     </div>
 
-    <div class="mx-4 bg-white p-4 rounded-2xl shadow-sm border border-blue-50">
-        <div class="flex justify-between items-center mb-2">
-            <div class="flex items-center gap-2">
-                <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded">VIP 1</span>
-                <span class="text-xs font-bold text-gray-700">Next Level: VIP 2</span>
-            </div>
-            <span class="text-[10px] text-gray-400">Target: $300.00</span>
-        </div>
-        <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-            <div class="bg-blue-600 h-full w-[45%] rounded-full"></div>
-        </div>
-        <p class="text-[9px] text-gray-400 mt-1">Recharge $165.00 more to upgrade</p>
-    </div>
-
-    <div class="grid grid-cols-3 gap-2 p-4">
-        <div class="bg-white p-3 rounded-xl text-center shadow-sm active:scale-95 transition">
-            <div class="text-2xl mb-1">🎁</div>
-            <p class="text-[10px] font-medium text-gray-600">Invite Friends</p>
-        </div>
-        <div class="bg-white p-3 rounded-xl text-center shadow-sm active:scale-95 transition">
-            <div class="text-2xl mb-1">🎧</div>
-            <p class="text-[10px] font-medium text-gray-600">Customer Service</p>
-        </div>
-        <div class="bg-white p-3 rounded-xl text-center shadow-sm active:scale-95 transition">
-            <div class="text-2xl mb-1">📖</div>
-            <p class="text-[10px] font-medium text-gray-600">Tutorial</p>
-        </div>
-    </div>
-
-    <div class="px-4 mb-4">
-        <div class="bg-white p-4 rounded-2xl shadow-sm grid grid-cols-2 gap-4">
-            <div><p class="text-[10px] text-gray-400 font-bold uppercase">Today Profit</p><p class="text-lg font-bold text-green-600">$0.00</p></div>
-            <div><p class="text-[10px] text-gray-400 font-bold uppercase">Turnover</p><p class="text-lg font-bold text-blue-700">$0.00</p></div>
-        </div>
-    </div>
-
-    <div class="mx-4 bg-white p-4 rounded-2xl shadow-sm border-l-4 border-orange-500">
-        <h3 class="font-bold text-sm text-gray-800 mb-3 flex justify-between">
-            My Shop <span>🛒</span>
-        </h3>
-        <div class="flex justify-between items-center bg-gray-50 p-3 rounded-xl mb-3">
-            <div>
-                <p class="text-[10px] text-gray-400">Listed Products</p>
-                <p id="listed-count" class="font-bold text-blue-800">12 Items</p>
-            </div>
-            <div class="text-right">
-                <p class="text-[10px] text-gray-400">Credit Score</p>
-                <p id="credit-score" class="font-bold text-orange-500">10 / 10</p>
+    <div id="verifyModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-[100] p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">Store Verification</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-xs text-gray-400 font-bold uppercase">Store Logo</label>
+                    <input type="file" id="storeLogoInput" class="w-full text-xs mt-1 border p-2 rounded-lg">
+                </div>
+                <div>
+                    <label class="text-xs text-gray-400 font-bold uppercase">Store Name *</label>
+                    <input type="text" id="storeName" placeholder="Enter your shop name" class="w-full border p-3 rounded-xl text-sm outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="text-xs text-gray-400 font-bold uppercase">Shop Address *</label>
+                    <input type="text" id="storeAddress" placeholder="Street, City, Country" class="w-full border p-3 rounded-xl text-sm outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="text-xs text-gray-400 font-bold uppercase">Store Title</label>
+                    <input type="text" id="storeTitle" placeholder="e.g. Best Fashion Store" class="w-full border p-3 rounded-xl text-sm outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="text-xs text-gray-400 font-bold uppercase">Store Profile</label>
+                    <textarea id="storeProfile" placeholder="Tell customers about your shop..." class="w-full border p-3 rounded-xl text-sm h-20 outline-none focus:border-blue-500"></textarea>
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button onclick="closeVerifyModal()" class="flex-1 py-3 text-gray-500 font-bold">Cancel</button>
+                    <button onclick="submitVerify()" class="flex-1 py-3 bg-blue-700 text-white rounded-xl font-bold shadow-lg">OK</button>
+                </div>
             </div>
         </div>
-        <a href="commodity.html" class="block text-center text-[10px] text-blue-600 font-bold underline">Manage Products</a>
     </div>
 
     <nav class="fixed bottom-0 w-full bg-white border-t flex justify-around py-4 z-50">
@@ -91,11 +89,41 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        var swiper = new Swiper(".mySwiper", {
-            pagination: { el: ".swiper-pagination", clickable: true },
-            autoplay: { delay: 3000 },
-            loop: true
-        });
+        var swiper = new Swiper(".mySwiper", { pagination: { el: ".swiper-pagination" }, autoplay: { delay: 3000 }, loop: true });
+
+        // Verification Logic
+        function openVerifyModal() { document.getElementById('verifyModal').style.display = 'flex'; }
+        function closeVerifyModal() { document.getElementById('verifyModal').style.display = 'none'; }
+
+        function submitVerify() {
+            const name = document.getElementById('storeName').value;
+            const addr = document.getElementById('storeAddress').value;
+            const logoInput = document.getElementById('storeLogoInput');
+
+            if (!name || !addr) {
+                alert("Store Name and Address are required!");
+                return;
+            }
+
+            // Update Status to Green Verified
+            const badge = document.getElementById('verifyBadge');
+            badge.innerHTML = '● Verified';
+            badge.classList.remove('text-orange-500');
+            badge.classList.add('text-green-500');
+            badge.onclick = null; // Disable clicking after verification
+
+            // Update Logo if uploaded
+            if (logoInput.files && logoInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('headerLogo').src = e.target.result;
+                }
+                reader.readAsDataURL(logoInput.files[0]);
+            }
+
+            alert("Store Verified Successfully!");
+            closeVerifyModal();
+        }
     </script>
 </body>
 </html>
