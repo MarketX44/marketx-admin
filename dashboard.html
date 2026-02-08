@@ -3,88 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | MarketX Global</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Merchant Dashboard | EX Mall</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root { --gold: #d4af37; --dark: #0a0a0a; --card: #161616; --text: #f0f0f0; }
-        body { font-family: 'Poppins', sans-serif; margin: 0; background: var(--dark); color: var(--text); padding-bottom: 80px; }
-
-        /* Top Balance Card */
-        .header-card { background: linear-gradient(135deg, #1a1a1a, #000); padding: 30px 20px; border-bottom: 1px solid var(--gold); text-align: center; }
-        .balance-label { font-size: 14px; opacity: 0.7; letter-spacing: 1px; }
-        .balance-amount { font-size: 36px; font-weight: 600; color: var(--gold); margin: 10px 0; }
-        .user-stats { display: flex; justify-content: space-around; margin-top: 20px; font-size: 13px; }
-
-        /* VIP Levels Grid */
-        .section-title { padding: 20px; font-size: 18px; font-weight: 600; border-left: 4px solid var(--gold); margin: 20px; }
-        .vip-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px; }
-        .vip-card { background: var(--card); border-radius: 15px; padding: 20px; border: 1px solid #333; position: relative; overflow: hidden; }
-        .vip-card.locked { opacity: 0.6; }
-        .vip-badge { background: var(--gold); color: black; padding: 2px 10px; border-radius: 5px; font-size: 10px; font-weight: bold; position: absolute; top: 10px; right: 10px; }
-        .vip-name { font-size: 16px; font-weight: 600; margin-bottom: 5px; color: var(--gold); }
-        .vip-info { font-size: 12px; color: #aaa; margin-bottom: 15px; }
-        .btn-grab { width: 100%; padding: 10px; background: transparent; border: 1px solid var(--gold); color: var(--gold); border-radius: 8px; cursor: pointer; font-size: 12px; transition: 0.3s; }
-        .btn-grab:hover { background: var(--gold); color: black; }
-
-        /* Bottom Nav */
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; }
-        .nav-item { text-align: center; font-size: 12px; color: #888; text-decoration: none; }
-        .nav-item.active { color: var(--gold); }
+        .matching-animation {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .modal { display: none; position: fixed; z-index: 50; inset: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; }
+        .active-modal { display: flex; }
     </style>
 </head>
-<body>
+<body class="bg-gray-100 font-sans pb-20">
 
-    <div class="header-card">
-        <div class="balance-label">TOTAL BALANCE</div>
-        <div class="balance-amount">$0.00</div>
-        <div class="user-stats">
-            <div>Today Profit<br><span style="color:var(--gold)">$0.00</span></div>
-            <div>Level<br><span style="color:var(--gold)">VIP 0</span></div>
+    <div class="bg-white p-4 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">AD</div>
+            <div>
+                <h2 class="font-bold text-sm">ad009@qq.com <span class="bg-green-500 text-white text-[10px] px-2 py-0.5 rounded-full ml-1">Verified</span></h2>
+                <p class="text-xs text-gray-500">ID: 8829104 | Credit: 100</p>
+            </div>
+        </div>
+        <div class="text-gray-400 text-xl">🔔</div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 p-4">
+        <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-blue-600">
+            <p class="text-xs text-gray-500">Total Turnover</p>
+            <p class="text-lg font-bold text-blue-800" id="total-turnover">$704,900.00</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-green-500">
+            <p class="text-xs text-gray-500">Total Profit</p>
+            <p class="text-lg font-bold text-green-600" id="total-profit">$208,361.00</p>
         </div>
     </div>
 
-    <div class="section-title">Investment Plans (VIP)</div>
-
-    <div class="vip-container">
-        <div class="vip-card">
-            <span class="vip-badge">ACTIVE</span>
-            <div class="vip-name">VIP 0</div>
-            <div class="vip-info">Daily Profit: 10%<br>Min. Investment: Free</div>
-            <button class="btn-grab" onclick="location.href='task.html'">Start Grabbing</button>
+    <div class="m-4 bg-white p-6 rounded-2xl text-center shadow-md">
+        <div class="mb-4">
+            <p class="text-gray-400 text-sm">Today's Performance</p>
+            <div class="flex justify-around mt-4">
+                <div><p class="text-xs text-gray-400">Orders</p><p class="font-bold">45/45</p></div>
+                <div><p class="text-xs text-gray-400">Profit</p><p class="font-bold text-blue-600">$0.00</p></div>
+            </div>
         </div>
+        
+        <button onclick="startMatching()" id="match-btn" class="w-full bg-blue-700 text-white py-4 rounded-full font-bold shadow-lg active:scale-95 transition-transform">
+            Start Matching
+        </button>
+    </div>
 
-        <div class="vip-card">
-            <div class="vip-name">VIP 1</div>
-            <div class="vip-info">Daily Profit: 12%<br>Price: $100.00</div>
-            <button class="btn-grab" onclick="buyVIP(100)">Unlock Now</button>
-        </div>
+    <div id="matching-modal" class="modal">
+        <div class="bg-white w-11/12 max-w-sm rounded-3xl overflow-hidden p-6 text-center">
+            <div id="loader-view">
+                <div class="matching-animation mx-auto mb-4"></div>
+                <p class="text-gray-600 font-medium">Matching Merchant Database...</p>
+            </div>
 
-        <div class="vip-card">
-            <div class="vip-name">VIP 2</div>
-            <div class="vip-info">Daily Profit: 15%<br>Price: $300.00</div>
-            <button class="btn-grab" onclick="buyVIP(300)">Unlock Now</button>
-        </div>
+            <div id="product-view" class="hidden">
+                <h3 class="text-lg font-bold mb-4">Order Matched!</h3>
+                <img id="product-img" src="https://m.media-amazon.com/images/I/71o8n89p2rL._AC_SL1500_.jpg" class="w-32 h-32 mx-auto rounded-xl object-cover mb-4">
+                <p id="product-name" class="text-sm text-gray-600 mb-4">Apple Watch Series 9 - 45mm Blue</p>
+                
+                <div class="bg-gray-50 p-3 rounded-lg text-sm space-y-2 mb-6 text-left">
+                    <div class="flex justify-between"><span>Amount:</span> <span class="font-bold" id="product-price">$399.00</span></div>
+                    <div class="flex justify-between"><span>Commission:</span> <span class="text-green-600 font-bold" id="product-commission">+$15.96</span></div>
+                </div>
 
-        <div class="vip-card">
-            <div class="vip-name">VIP 8</div>
-            <div class="vip-info">Daily Profit: 40%<br>Price: $10,000.00</div>
-            <button class="btn-grab" onclick="buyVIP(10000)">Unlock Now</button>
+                <button onclick="submitOrder()" class="w-full bg-blue-700 text-white py-3 rounded-full font-bold">Submit Order</button>
+            </div>
         </div>
     </div>
 
-    <nav class="bottom-nav">
-        <a href="dashboard.html" class="nav-item active">🏠<br>Home</a>
-        <a href="task.html" class="nav-item">🛍️<br>Orders</a>
-        <a href="recharge.html" class="nav-item">💰<br>Recharge</a>
-        <a href="profile.html" class="nav-item">👤<br>Account</a>
+    <nav class="fixed bottom-0 w-full bg-white border-t flex justify-around py-3 text-gray-400 text-[10px]">
+        <div class="text-blue-700 text-center">🏠<br>Home</div>
+        <div class="text-center">📦<br>Commodity</div>
+        <div class="text-center text-xl bg-blue-700 text-white w-12 h-12 rounded-full -mt-8 flex items-center justify-center border-4 border-gray-100">🛒</div>
+        <div class="text-center">💬<br>Message</div>
+        <div class="text-center">👤<br>Account</div>
     </nav>
 
     <script>
-        function buyVIP(price) {
-            alert("To unlock this level, please Recharge $" + price + " and contact support.");
-            window.location.href = "recharge.html";
+        const modal = document.getElementById('matching-modal');
+        const loader = document.getElementById('loader-view');
+        const productView = document.getElementById('product-view');
+
+        function startMatching() {
+            modal.classList.add('active-modal');
+            loader.classList.remove('hidden');
+            productView.classList.add('hidden');
+
+            // 3 စက္ကန့်ကြာရင် ပစ္စည်းပေါ်လာမယ်
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                productView.classList.remove('hidden');
+            }, 3000);
+        }
+
+        function submitOrder() {
+            alert("Order Submitted! Commission added to your balance.");
+            modal.classList.remove('active-modal');
+            // ဤနေရာတွင် Telegram ဆီသို့ စာပို့မည့် function ကို ထည့်နိုင်သည်
         }
     </script>
 </body>
 </html>
-
