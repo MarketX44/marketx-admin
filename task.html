@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work - Task Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #d4af37; --dark: #0a0a0a; --gray: #1a1a1a; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: var(--dark); color: white; padding-bottom: 80px; }
+        
+        /* Header Stats */
+        .task-header { background: var(--gray); padding: 20px; border-bottom: 2px solid var(--gold); text-align: center; }
+        .stat-box { display: flex; justify-content: space-around; margin-top: 15px; }
+        .stat-item { font-size: 12px; color: #888; }
+        .stat-item span { display: block; font-size: 18px; color: var(--gold); font-weight: bold; }
+
+        /* Order Grabbing Area */
+        .grab-area { text-align: center; padding: 40px 20px; }
+        .product-display { width: 100%; max-width: 300px; height: 250px; background: #222; margin: 0 auto; border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 1px dashed var(--gold); overflow: hidden; }
+        .product-display img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        
+        .btn-grab { margin-top: 30px; width: 180px; height: 180px; background: radial-gradient(circle, var(--gold), #8a6d3b); border: none; border-radius: 50%; color: black; font-weight: bold; font-size: 18px; cursor: pointer; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        /* Modal Popup */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: var(--gray); padding: 25px; border-radius: 20px; width: 100%; text-align: center; }
+        .info-row { display: flex; justify-content: space-between; margin: 10px 0; font-size: 14px; border-bottom: 1px solid #333; padding-bottom: 5px; }
+
+        /* Bottom Nav */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; }
+        .nav-item { text-align: center; font-size: 12px; color: #888; text-decoration: none; }
+        .nav-item.active { color: var(--gold); }
+    </style>
+</head>
+<body>
+
+    <div class="task-header">
+        <h3 style="margin:0; font-size: 16px;">Task Center</h3>
+        <div class="stat-box">
+            <div class="stat-item">Today Profit<span>$0.00</span></div>
+            <div class="stat-item">Completed<span>0/10</span></div>
+        </div>
+    </div>
+
+    <div class="grab-area">
+        <div class="product-display" id="display">
+            <p id="placeholder">Ready to Grab...</p>
+            <img id="product-img" src="">
+        </div>
+        <button class="btn-grab" onclick="startGrabbing()">RECEIVE ORDER</button>
+    </div>
+
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <h3 style="color:var(--gold)">Order Matched!</h3>
+            <div class="info-row"><span>Product Price:</span> <span id="p-price">$0.00</span></div>
+            <div class="info-row"><span>Profit (Your VIP):</span> <span id="p-profit">$0.00</span></div>
+            <div class="info-row"><span>Final Settlement:</span> <span id="p-total" style="color:var(--gold)">$0.00</span></div>
+            <button class="btn-grab" style="width:100%; height:50px; border-radius:10px; margin-top:20px; animation:none;" onclick="submitOrder()">SUBMIT ORDER</button>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-item">🏠<br>Home</a>
+        <a href="task.html" class="nav-item active">🛍️<br>Orders</a>
+        <a href="recharge.html" class="nav-item">💰<br>Recharge</a>
+        <a href="profile.html" class="nav-item">👤<br>Account</a>
+    </nav>
+
+    <script>
+        const products = [
+            { name: "Luxury Watch", price: 120, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" },
+            { name: "Sneakers", price: 85, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" },
+            { name: "Headphones", price: 200, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" }
+        ];
+
+        function startGrabbing() {
+            document.getElementById('placeholder').innerText = "Matching System...";
+            setTimeout(() => {
+                const randomProduct = products[Math.floor(Math.random() * products.length)];
+                document.getElementById('placeholder').style.display = "none";
+                document.getElementById('product-img').src = randomProduct.img;
+                document.getElementById('product-img').style.display = "block";
+                
+                // နမူနာ VIP 0 တွက်ချက်မှု (10% profit)
+                const profit = randomProduct.price * 0.10;
+                document.getElementById('p-price').innerText = "$" + randomProduct.price;
+                document.getElementById('p-profit').innerText = "$" + profit.toFixed(2);
+                document.getElementById('p-total').innerText = "$" + (randomProduct.price + profit).toFixed(2);
+                
+                document.getElementById('orderModal').style.display = 'flex';
+            }, 2000);
+        }
+
+        function submitOrder() {
+            // Telegram သို့ အမှာစာပို့ခြင်း
+            const botToken = "8444757495:AAG6kOwh8r_hHFyyRWcXctnK0Ym1Z7pKbzU";
+            const chatId = "6698333806";
+            const msg = `📦 New Order Grabbed!\nPrice: ${document.getElementById('p-price').innerText}\nProfit: ${document.getElementById('p-profit').innerText}\nStatus: Pending Verification`;
+            
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(msg)}`)
+            .then(() => {
+                alert("Order submitted successfully! Waiting for admin approval.");
+                location.reload();
+            });
+        }
+    </script>
+</body>
+</html>
