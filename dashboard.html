@@ -7,122 +7,193 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
-        .noti-dot { position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: red; border-radius: 50%; display: none; }
-        .is-active .noti-dot { display: block; }
-        #verifyModal { backdrop-filter: blur(5px); }
+        .noti-dot { position: absolute; top: -2px; right: -2px; width: 10px; height: 10px; background: #ff0000; border: 2px solid white; border-radius: 50%; }
+        .hidden { display: none; }
+        .unverified { color: #ff9800; }
+        .verified { color: #4caf50; }
+        #toast { transition: transform 0.3s ease-in-out; }
     </style>
 </head>
-<body class="bg-[#f8f9fb] pb-24">
+<body class="bg-[#f4f7fe] pb-24 font-sans">
 
-    <div class="bg-white px-4 py-3 flex justify-between items-center shadow-sm sticky top-0 z-50">
-        <div class="flex items-center gap-3">
-            <div id="shopLogoContainer" class="w-10 h-10 rounded-full border border-gray-100 overflow-hidden flex items-center justify-center bg-gray-50">
-                <img id="headerLogo" src="https://i.ibb.co/VWVf60D/marketx-logo.png" class="w-8 h-8 object-contain">
-            </div>
-            <div>
-                <h1 class="text-sm font-black text-blue-800 italic leading-none">MARKET <span class="text-orange-500">X</span></h1>
-                <button onclick="openVerifyModal()" id="verifyBadge" class="mt-1 text-[10px] font-bold text-orange-500 flex items-center gap-1">
-                    ● Unverified <span class="text-[8px] font-normal underline">(Click to verify)</span>
-                </button>
+    <header class="bg-white px-4 py-3 flex justify-between items-center sticky top-0 z-50 shadow-sm">
+        <div class="flex flex-col">
+            <h1 class="text-lg font-black italic text-blue-900 leading-none">MARKET <span class="text-orange-500">X</span></h1>
+            <div id="verifyStatus" class="flex items-center gap-1 mt-1 cursor-pointer" onclick="openVerifyModal()">
+                <span id="dotStatus" class="text-[10px] unverified">●</span>
+                <span id="textStatus" class="text-[10px] font-bold unverified uppercase">Unverified</span>
             </div>
         </div>
-        
-        <div class="flex gap-4">
-            <button class="relative is-active" onclick="location.href='message.html'">
-                <span class="text-xl">💬</span>
-                <div class="noti-dot"></div>
-            </button>
-            <button class="relative" onclick="alert('No new notifications')">
-                <span class="text-xl">🔔</span>
-                <div class="noti-dot"></div>
-            </button>
-            <button onclick="window.open('https://t.me/your_service', '_blank')" class="text-xl">🎧</button>
-        </div>
-    </div>
 
-    <div class="swiper mySwiper m-4 rounded-2xl overflow-hidden shadow-md">
+        <div class="flex items-center gap-4">
+            <button class="relative" onclick="openChat()">
+                <span class="text-2xl">💬</span>
+                <div id="msgBadge" class="noti-dot"></div>
+            </button>
+            <button class="relative" onclick="showToast('New Customer Order Received!')">
+                <span class="text-2xl">🔔</span>
+                <div id="notiBadge" class="noti-dot hidden"></div>
+            </button>
+            <div id="shopLogoHeader" class="w-10 h-10 rounded-full border border-gray-100 overflow-hidden bg-white shadow-sm flex items-center justify-center">
+                <img id="currentLogo" src="https://i.ibb.co/VWVf60D/marketx-logo.png" class="w-full h-full object-contain p-1">
+            </div>
+        </div>
+    </header>
+
+    <div class="swiper mySwiper m-4 rounded-3xl overflow-hidden shadow-lg border-4 border-white">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="https://img.freepik.com/free-vector/horizontal-banner-online-fashion-shopping-with-woman_23-2148585404.jpg" class="w-full h-40 object-cover"></div>
-            <div class="swiper-slide"><img src="https://img.freepik.com/free-vector/flat-sale-background-concept_23-2148658145.jpg" class="w-full h-40 object-cover"></div>
+            <div class="swiper-slide"><img src="https://img.freepik.com/free-vector/horizontal-banner-online-fashion-shopping-with-woman_23-2148585404.jpg" class="w-full h-44 object-cover"></div>
+            <div class="swiper-slide"><img src="https://img.freepik.com/free-vector/flat-sale-background-concept_23-2148658145.jpg" class="w-full h-44 object-cover"></div>
         </div>
         <div class="swiper-pagination"></div>
     </div>
 
-    <div id="verifyModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-[100] p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl">
-            <h3 class="text-lg font-bold text-gray-800 mb-4">Store Verification</h3>
-            <div class="space-y-4">
-                <div>
-                    <label class="text-xs text-gray-400 font-bold uppercase">Store Logo</label>
-                    <input type="file" id="storeLogoInput" class="w-full text-xs mt-1 border p-2 rounded-lg">
-                </div>
-                <div>
-                    <label class="text-xs text-gray-400 font-bold uppercase">Store Name *</label>
-                    <input type="text" id="storeName" placeholder="Enter your shop name" class="w-full border p-3 rounded-xl text-sm outline-none focus:border-blue-500">
-                </div>
-                <div>
-                    <label class="text-xs text-gray-400 font-bold uppercase">Shop Address *</label>
-                    <input type="text" id="storeAddress" placeholder="Street, City, Country" class="w-full border p-3 rounded-xl text-sm outline-none focus:border-blue-500">
-                </div>
-                <div>
-                    <label class="text-xs text-gray-400 font-bold uppercase">Store Title</label>
-                    <input type="text" id="storeTitle" placeholder="e.g. Best Fashion Store" class="w-full border p-3 rounded-xl text-sm outline-none focus:border-blue-500">
-                </div>
-                <div>
-                    <label class="text-xs text-gray-400 font-bold uppercase">Store Profile</label>
-                    <textarea id="storeProfile" placeholder="Tell customers about your shop..." class="w-full border p-3 rounded-xl text-sm h-20 outline-none focus:border-blue-500"></textarea>
-                </div>
-                <div class="flex gap-2 pt-2">
-                    <button onclick="closeVerifyModal()" class="flex-1 py-3 text-gray-500 font-bold">Cancel</button>
-                    <button onclick="submitVerify()" class="flex-1 py-3 bg-blue-700 text-white rounded-xl font-bold shadow-lg">OK</button>
-                </div>
+    <div class="mx-4 mb-6 text-center bg-white p-4 rounded-3xl shadow-sm">
+        <img src="https://cdn-icons-png.flaticon.com/512/3081/3081986.png" class="w-20 mx-auto animate-bounce mb-2" alt="Shopping">
+        <h2 class="text-sm font-bold text-gray-700 uppercase tracking-widest">Today's Performance</h2>
+        <div class="grid grid-cols-3 gap-2 mt-4">
+            <div class="bg-blue-50 p-2 rounded-2xl">
+                <p class="text-[9px] text-gray-500 uppercase">Profit</p>
+                <p class="text-sm font-bold text-blue-800">$0.00</p>
+            </div>
+            <div class="bg-blue-50 p-2 rounded-2xl">
+                <p class="text-[9px] text-gray-500 uppercase">Turnover</p>
+                <p class="text-sm font-bold text-blue-800">$0.00</p>
+            </div>
+            <div class="bg-blue-50 p-2 rounded-2xl">
+                <p class="text-[9px] text-gray-500 uppercase">Orders</p>
+                <p class="text-sm font-bold text-blue-800">0</p>
             </div>
         </div>
     </div>
 
-    <nav class="fixed bottom-0 w-full bg-white border-t flex justify-around py-4 z-50">
-        <a href="dashboard.html" class="text-blue-700 text-center">🏠<br><span class="text-[10px]">Home</span></a>
-        <a href="commodity.html" class="text-gray-400 text-center">📦<br><span class="text-[10px]">Commodity</span></a>
-        <a href="order.html" class="text-gray-400 text-center">📋<br><span class="text-[10px]">Orders</span></a>
-        <a href="account.html" class="text-gray-400 text-center">👤<br><span class="text-[10px]">Account</span></a>
+    <div class="mx-4 bg-white p-5 rounded-3xl shadow-sm border-l-8 border-blue-800">
+        <h3 class="font-black text-gray-800 mb-4 flex justify-between items-center">
+            MY SHOP <span class="text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">Manager</span>
+        </h3>
+        <div class="flex justify-between items-center border-b pb-4 mb-4">
+            <div><p class="text-xs text-gray-400">Listed Items</p><p class="text-lg font-bold">12</p></div>
+            <div class="text-right">
+                <p class="text-xs text-gray-400">Credit Score</p>
+                <p class="text-lg font-bold text-orange-500 italic">10 / 10</p>
+            </div>
+        </div>
+        <div class="space-y-1">
+            <div class="flex justify-between text-[10px] font-bold uppercase">
+                <span>VIP 1 Level Progress</span>
+                <span class="text-blue-600">45%</span>
+            </div>
+            <div class="w-full bg-gray-100 h-2 rounded-full"><div class="bg-blue-600 h-full w-[45%] rounded-full"></div></div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-3 p-4">
+        <div class="bg-white p-4 rounded-2xl shadow-sm text-center">
+            <span class="text-2xl block">🎁</span><p class="text-[10px] font-bold mt-1 uppercase">Invite</p>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-sm text-center" onclick="window.open('https://t.me/MarketXService')">
+            <span class="text-2xl block">🎧</span><p class="text-[10px] font-bold mt-1 uppercase">Service</p>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-sm text-center">
+            <span class="text-2xl block">📖</span><p class="text-[10px] font-bold mt-1 uppercase">Tutorial</p>
+        </div>
+    </div>
+
+    <div id="verifyModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-[100] p-6">
+        <div class="bg-white w-full rounded-3xl p-6 overflow-y-auto max-h-[80vh]">
+            <h2 class="text-xl font-bold mb-4">Complete Store Verification</h2>
+            <div class="space-y-4">
+                <div class="text-center">
+                    <label class="cursor-pointer">
+                        <div id="previewBox" class="w-20 h-20 bg-gray-100 rounded-full mx-auto flex items-center justify-center border-2 border-dashed">
+                            <span class="text-[10px] text-gray-400">Add Logo</span>
+                        </div>
+                        <input type="file" id="logoInput" class="hidden" onchange="previewLogo(this)">
+                    </label>
+                </div>
+                <input type="text" id="storeName" placeholder="Store Name *" class="w-full bg-gray-50 p-4 rounded-xl outline-none border">
+                <input type="text" id="storeAddress" placeholder="Shop Address *" class="w-full bg-gray-50 p-4 rounded-xl outline-none border">
+                <input type="text" id="storeTitle" placeholder="Store Title" class="w-full bg-gray-50 p-4 rounded-xl outline-none border">
+                <textarea id="storeProfile" placeholder="Store Profile" class="w-full bg-gray-50 p-4 rounded-xl outline-none border h-20"></textarea>
+                <button onclick="submitVerify()" class="w-full bg-blue-800 text-white py-4 rounded-xl font-bold">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="chatBox" class="fixed bottom-24 right-4 w-72 h-96 bg-white shadow-2xl rounded-2xl hidden flex-col z-[100] border">
+        <div class="bg-blue-800 p-3 text-white rounded-t-2xl flex justify-between"><span>Customer Chat</span><button onclick="closeChat()">×</button></div>
+        <div id="chatContent" class="flex-1 p-3 overflow-y-auto bg-gray-50 text-[11px] space-y-2">
+            <div class="bg-white p-2 rounded-lg shadow-sm w-fit">Hello! How can I help you?</div>
+        </div>
+        <div class="p-2 border-t flex gap-1">
+            <input type="text" id="chatInput" placeholder="Reply..." class="flex-1 p-2 bg-gray-50 rounded-lg text-xs outline-none">
+            <button onclick="sendMsg()" class="bg-blue-800 text-white px-3 rounded-lg text-xs">Send</button>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 bg-black/80 text-white px-6 py-3 rounded-full text-xs font-bold hidden z-[200]">
+        📢 <span id="toastMsg"></span>
+    </div>
+
+    <nav class="fixed bottom-0 w-full bg-white border-t flex justify-around py-4 shadow-2xl z-50">
+        <a href="dashboard.html" class="text-blue-800 text-center"><span class="block text-2xl">🏠</span><span class="text-[10px] font-bold">Home</span></a>
+        <a href="commodity.html" class="text-gray-400 text-center"><span class="block text-2xl">📦</span><span class="text-[10px] font-bold">Commodity</span></a>
+        <a href="order.html" class="text-gray-400 text-center"><span class="block text-2xl">📋</span><span class="text-[10px] font-bold">Orders</span></a>
+        <a href="account.html" class="text-gray-400 text-center"><span class="block text-2xl">👤</span><span class="text-[10px] font-bold">Account</span></a>
     </nav>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         var swiper = new Swiper(".mySwiper", { pagination: { el: ".swiper-pagination" }, autoplay: { delay: 3000 }, loop: true });
 
-        // Verification Logic
         function openVerifyModal() { document.getElementById('verifyModal').style.display = 'flex'; }
         function closeVerifyModal() { document.getElementById('verifyModal').style.display = 'none'; }
+        
+        function previewLogo(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewBox').innerHTML = `<img src="${e.target.result}" class="w-full h-full rounded-full object-cover">`;
+                    window.pendingLogo = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
         function submitVerify() {
             const name = document.getElementById('storeName').value;
             const addr = document.getElementById('storeAddress').value;
-            const logoInput = document.getElementById('storeLogoInput');
+            if (!name || !addr) { alert("Please fill Name and Address!"); return; }
 
-            if (!name || !addr) {
-                alert("Store Name and Address are required!");
-                return;
+            document.getElementById('textStatus').innerText = "Verified";
+            document.getElementById('textStatus').className = "text-[10px] font-bold verified uppercase";
+            document.getElementById('dotStatus').className = "text-[10px] verified";
+            
+            if (window.pendingLogo) {
+                document.getElementById('currentLogo').src = window.pendingLogo;
             }
-
-            // Update Status to Green Verified
-            const badge = document.getElementById('verifyBadge');
-            badge.innerHTML = '● Verified';
-            badge.classList.remove('text-orange-500');
-            badge.classList.add('text-green-500');
-            badge.onclick = null; // Disable clicking after verification
-
-            // Update Logo if uploaded
-            if (logoInput.files && logoInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('headerLogo').src = e.target.result;
-                }
-                reader.readAsDataURL(logoInput.files[0]);
-            }
-
-            alert("Store Verified Successfully!");
+            
             closeVerifyModal();
+            showToast("Store Verified Successfully!");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+
+        function openChat() { document.getElementById('chatBox').style.display = 'flex'; document.getElementById('msgBadge').style.display = 'none'; }
+        function closeChat() { document.getElementById('chatBox').style.display = 'none'; }
+        function sendMsg() {
+            const input = document.getElementById('chatInput');
+            if(!input.value) return;
+            const msgDiv = document.createElement('div');
+            msgDiv.className = "bg-blue-800 text-white p-2 rounded-lg shadow-sm w-fit ml-auto";
+            msgDiv.innerText = input.value;
+            document.getElementById('chatContent').appendChild(msgDiv);
+            input.value = "";
         }
     </script>
 </body>
