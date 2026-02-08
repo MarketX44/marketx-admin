@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commodity Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 pb-24">
+
+    <div class="bg-white p-4 sticky top-0 z-10 shadow-sm">
+        <h2 class="text-lg font-bold text-gray-800">Product Selection</h2>
+        <p class="text-[10px] text-gray-400">Select products to add to your store</p>
+    </div>
+
+    <div class="flex overflow-x-auto gap-3 p-4 bg-white border-b no-scrollbar">
+        <button onclick="filterCategory('all')" class="px-4 py-2 bg-blue-600 text-white rounded-full text-xs whitespace-nowrap">All Items</button>
+        <button onclick="filterCategory('women')" class="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-xs whitespace-nowrap">Women Clothing</button>
+        <button onclick="filterCategory('men')" class="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-xs whitespace-nowrap">Men Clothing</button>
+        <button onclick="filterCategory('watch')" class="px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-xs whitespace-nowrap">Watches</button>
+    </div>
+
+    <div class="p-4">
+        <h3 class="font-bold text-sm text-blue-800 mb-3">My Store Inventory</h3>
+        <div id="my-store" class="grid grid-cols-2 gap-3 mb-6">
+            <p class="col-span-2 text-center text-gray-400 text-xs py-4 border-2 border-dashed rounded-xl">No products selected yet.</p>
+        </div>
+
+        <hr class="my-6">
+
+        <h3 class="font-bold text-sm text-gray-700 mb-3">Available Products</h3>
+        <div id="product-list" class="grid grid-cols-2 gap-3">
+            </div>
+    </div>
+
+    <nav class="fixed bottom-0 w-full bg-white border-t flex justify-around py-4 shadow-2xl">
+        <a href="dashboard.html" class="text-gray-400 text-center">🏠<br><span class="text-[10px]">Home</span></a>
+        <a href="commodity.html" class="text-blue-700 text-center">📦<br><span class="text-[10px]">Commodity</span></a>
+        <a href="order.html" class="text-gray-400 text-center">📋<br><span class="text-[10px]">Orders</span></a>
+        <a href="account.html" class="text-gray-400 text-center">👤<br><span class="text-[10px]">Account</span></a>
+    </nav>
+
+    <script>
+        // နမူနာ ထုတ်ကုန်ဒေတာများ
+        const products = [
+            { id: 1, name: "Floral Summer Dress", price: 45, cat: 'women', img: "https://images.unsplash.com/photo-1572804013307-5977a11745b5?w=200" },
+            { id: 2, name: "Rolex Submariner Style", price: 250, cat: 'watch', img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200" },
+            { id: 3, name: "Men's Casual Shirt", price: 35, cat: 'men', img: "https://images.unsplash.com/photo-1596755094514-f87034a264c1?w=200" },
+            { id: 4, name: "Smart Watch Series 7", price: 120, cat: 'watch', img: "https://images.unsplash.com/photo-1544117518-30dd54b99bbd?w=200" }
+        ];
+
+        let myStore = [];
+
+        function renderProducts() {
+            const list = document.getElementById('product-list');
+            list.innerHTML = products.map(p => `
+                <div class="bg-white p-3 rounded-xl shadow-sm border">
+                    <img src="${p.img}" class="w-full h-32 object-cover rounded-lg mb-2">
+                    <p class="text-[11px] font-bold truncate">${p.name}</p>
+                    <p class="text-blue-600 font-bold text-xs">$${p.price}</p>
+                    <button onclick="addToStore(${p.id})" class="mt-2 w-full py-1 bg-blue-100 text-blue-700 text-[10px] font-bold rounded">Add to Store</button>
+                </div>
+            `).join('');
+        }
+
+        function addToStore(id) {
+            const product = products.find(p => p.id === id);
+            if (!myStore.find(p => p.id === id)) {
+                myStore.push(product);
+                renderStore();
+            } else {
+                alert("This product is already in your store!");
+            }
+        }
+
+        function removeFromStore(id) {
+            myStore = myStore.filter(p => p.id !== id);
+            renderStore();
+        }
+
+        function renderStore() {
+            const storeDiv = document.getElementById('my-store');
+            if (myStore.length === 0) {
+                storeDiv.innerHTML = '<p class="col-span-2 text-center text-gray-400 text-xs py-4 border-2 border-dashed rounded-xl">No products selected yet.</p>';
+                return;
+            }
+            storeDiv.innerHTML = myStore.map(p => `
+                <div class="bg-blue-50 p-3 rounded-xl border border-blue-200 relative">
+                    <button onclick="removeFromStore(${p.id})" class="absolute -top-2 -right-2 bg-red-500 text-white w-5 h-5 rounded-full text-xs">×</button>
+                    <img src="${p.img}" class="w-full h-20 object-cover rounded-lg mb-2">
+                    <p class="text-[10px] font-bold truncate">${p.name}</p>
+                    <p class="text-blue-700 font-bold text-[10px]">$${p.price}</p>
+                </div>
+            `).join('');
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
