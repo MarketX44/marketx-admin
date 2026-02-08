@@ -1,22 +1,33 @@
-<div class="p-6 bg-white min-h-screen">
-    <h2 class="text-xl font-bold mb-6">Withdrawal Setting</h2>
-    <div class="space-y-4">
-        <div>
-            <label class="text-xs font-bold text-gray-400">WITHDRAWAL METHOD</label>
-            <select class="w-full border p-3 rounded-xl mt-1 outline-none">
-                <option>USDT (TRC-20)</option>
-                <option>Bank Card (Local)</option>
-            </select>
-        </div>
-        <div>
-            <label class="text-xs font-bold text-gray-400">WALLET ADDRESS / ACCOUNT NO.</label>
-            <input type="text" placeholder="Enter address" class="w-full border p-3 rounded-xl mt-1 outline-none">
-        </div>
-        <hr class="my-4">
-        <div>
-            <label class="text-xs font-bold text-gray-400">SET TRANSACTION PASSWORD (6 DIGITS)</label>
-            <input type="password" maxlength="6" placeholder="0 0 0 0 0 0" class="w-full border p-3 rounded-xl mt-1 outline-none text-center tracking-[1em]">
-        </div>
-        <button class="w-full bg-blue-800 text-white py-4 rounded-xl font-bold shadow-lg">Save Settings</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal Setting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 pb-10">
+    <div class="bg-blue-800 p-6 text-white rounded-b-[30px] mb-6">
+        <h2 class="text-xl font-bold">Withdrawal Setting</h2>
+        <p class="text-[10px] opacity-70">Bind your wallet address and set transaction password</p>
     </div>
-</div>
+
+    <div class="p-4 space-y-6">
+        <div class="bg-white p-5 rounded-3xl shadow-sm border">
+            <h3 class="text-xs font-black text-gray-400 uppercase mb-4">Wallet Address (TRC-20)</h3>
+            <input type="text" placeholder="Enter your USDT-TRC20 address" class="w-full bg-gray-50 p-4 rounded-xl text-sm outline-none border focus:border-blue-500">
+            <p class="text-[9px] text-red-500 mt-2">* Please double-check. Incorrect address may lead to loss of funds.</p>
+        </div>
+
+        <div class="bg-white p-5 rounded-3xl shadow-sm border">
+            <h3 class="text-xs font-black text-gray-400 uppercase mb-4">Set Transaction Password</h3>
+            <div class="flex gap-2 justify-between">
+                <input type="password" maxlength="6" placeholder="******" class="w-full bg-gray-50 p-4 rounded-xl text-center text-lg font-bold tracking-[1em] outline-none border focus:border-blue-500">
+            </div>
+            <p class="text-[9px] text-gray-400 mt-2">This 6-digit password will be required for all withdrawals.</p>
+        </div>
+
+        <button onclick="alert('Settings Saved!')" class="w-full bg-blue-800 text-white py-4 rounded-2xl font-bold shadow-lg active:scale-95 transition">Save All Settings</button>
+    </div>
+</body>
+</html>
