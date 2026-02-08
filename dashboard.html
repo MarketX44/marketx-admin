@@ -3,81 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>MarketX - Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* အလျင်အမြန် ပြောင်းလဲမည့် Animation */
-        .slot-machine {
-            height: 120px; overflow: hidden; position: relative;
-        }
-        .slot-track {
-            display: flex; flex-direction: column; animation: slide 0.1s linear infinite;
-        }
-        @keyframes slide {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-120px); }
-        }
+        .shopping-anim { width: 100px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     </style>
 </head>
-<body class="bg-[#f7f8fa] pb-20">
+<body class="bg-gray-50 pb-24">
 
-    <div class="bg-white p-4 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs">AD</div>
-            <div class="text-sm font-bold text-gray-800">ad009@qq.com <span class="text-[10px] text-green-500 font-normal">Verified</span></div>
+    <div id="home-page">
+        <div class="bg-white p-6 text-center border-b">
+            <h1 class="text-2xl font-black text-blue-800 tracking-tighter italic">MARKET <span class="text-orange-500">X</span></h1>
+            <div class="flex justify-center mt-2">
+                <img src="https://cdn-icons-png.flaticon.com/512/3081/3081986.png" class="shopping-anim" alt="Shopping Animation">
+            </div>
         </div>
-        <div class="flex gap-3 text-gray-500"><span>🎧</span><span>🔔</span></div>
-    </div>
 
-    <div class="p-3 grid grid-cols-2 gap-2">
-        <div class="bg-white p-3 rounded-lg shadow-sm">
-            <p class="text-[10px] text-gray-400">Total turnover</p>
-            <p class="text-blue-700 font-bold">$704,900.44</p>
-        </div>
-        <div class="bg-white p-3 rounded-lg shadow-sm">
-            <p class="text-[10px] text-gray-400">Total profit</p>
-            <p class="text-blue-700 font-bold">$208,361.84</p>
-        </div>
-    </div>
-
-    <div class="bg-white mx-3 p-3 rounded-xl shadow-sm grid grid-cols-3 gap-y-4 text-center">
-        <div><p class="text-blue-600 font-bold">$0.00</p><p class="text-[10px] text-gray-400">Today profit</p></div>
-        <div><p class="text-blue-600 font-bold">$0.00</p><p class="text-[10px] text-gray-400">Today turnover</p></div>
-        <div><p class="text-blue-600 font-bold">45</p><p class="text-[10px] text-gray-400">Balance order</p></div>
-        <div><p class="text-gray-800 font-bold">100</p><p class="text-[10px] text-gray-400">Credit score</p></div>
-        <div><p class="text-gray-800 font-bold">VIP1</p><p class="text-[10px] text-gray-400">Current level</p></div>
-        <div><p class="text-gray-800 font-bold">0</p><p class="text-[10px] text-gray-400">Frozen order</p></div>
-    </div>
-
-    <div class="mt-6 px-4">
-        <button onclick="openMatching()" class="w-full py-4 bg-[#1a4fdb] text-white rounded-full font-bold shadow-lg">
-            Start Matching
-        </button>
-    </div>
-
-    <div id="matchModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-        <div class="bg-white w-[85%] rounded-2xl p-6 text-center relative overflow-hidden">
-            <div id="matching-view">
-                <p class="text-sm font-bold text-gray-700 mb-4">Searching for Merchant...</p>
-                <div class="slot-machine border-2 border-dashed border-blue-200 rounded-xl mb-4">
-                    <div class="slot-track">
-                        <img src="https://m.media-amazon.com/images/I/71o8n89p2rL._AC_SL1500_.jpg" class="h-[120px] object-contain p-2">
-                        <img src="https://m.media-amazon.com/images/I/61p-L856D9L._AC_SL1500_.jpg" class="h-[120px] object-contain p-2">
-                        <img src="https://m.media-amazon.com/images/I/71C7R-e5S9L._AC_SL1500_.jpg" class="h-[120px] object-contain p-2">
-                    </div>
+        <div class="p-4">
+            <h3 class="font-bold text-gray-700 mb-3">Today's Performance</h3>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white p-4 rounded-2xl shadow-sm">
+                    <p class="text-[10px] text-gray-400 uppercase font-bold">Today Profit</p>
+                    <p id="today-profit" class="text-lg font-bold text-green-600">$0.00</p>
                 </div>
-                <p class="text-xs text-blue-500 animate-pulse">Establishing secure connection...</p>
+                <div class="bg-white p-4 rounded-2xl shadow-sm">
+                    <p class="text-[10px] text-gray-400 uppercase font-bold">Turnover</p>
+                    <p id="today-turnover" class="text-lg font-bold text-blue-700">$0.00</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-sm">
+                    <p class="text-[10px] text-gray-400 uppercase font-bold">Orders Received</p>
+                    <p id="order-count" class="text-lg font-bold text-gray-800">0</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-sm">
+                    <p class="text-[10px] text-gray-400 uppercase font-bold">Credit Score</p>
+                    <p id="credit-score" class="text-lg font-bold text-orange-500">10 / 10</p>
+                </div>
             </div>
         </div>
     </div>
 
+    <nav class="fixed bottom-0 w-full bg-white border-t flex justify-around py-4 shadow-2xl">
+        <button onclick="showPage('home')" class="text-blue-700 text-center">🏠<br><span class="text-[10px]">Home</span></button>
+        <button onclick="showPage('commodity')" class="text-gray-400 text-center">📦<br><span class="text-[10px]">Commodity</span></button>
+        <button onclick="showPage('order')" class="text-gray-400 text-center">📋<br><span class="text-[10px]">Orders</span></button>
+        <button onclick="showPage('account')" class="text-gray-400 text-center">👤<br><span class="text-[10px]">Account</span></button>
+    </nav>
+
     <script>
-        function openMatching() {
-            document.getElementById('matchModal').style.display = 'flex';
-            setTimeout(() => {
-                alert("Order Found! Logic ကို ပုံ ၁၃၊ ၁၄ ထဲကအတိုင်း ထပ်ပြင်ပေးပါ့မယ်။");
-                document.getElementById('matchModal').style.display = 'none';
-            }, 3000);
+        // အခြေခံ Logic များ
+        let stats = {
+            profit: 0.00,
+            turnover: 0.00,
+            orders: 0,
+            credit: 10
+        };
+
+        function updateStats() {
+            document.getElementById('today-profit').innerText = `$${stats.profit.toFixed(2)}`;
+            document.getElementById('today-turnover').innerText = `$${stats.turnover.toFixed(2)}`;
+            document.getElementById('order-count').innerText = stats.orders;
+            document.getElementById('credit-score').innerText = `${stats.credit} / 10`;
+        }
+
+        // Page Switching Logic (ရိုးရှင်းအောင် လုပ်ထားသည်)
+        function showPage(page) {
+            alert(page + " page is under construction. I will provide code for this in the next step!");
         }
     </script>
 </body>
