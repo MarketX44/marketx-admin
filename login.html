@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In | Global Mall</title>
+    <style>
+        body {
+            margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif;
+            background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070') no-repeat center center fixed;
+            background-size: cover; height: 100vh; display: flex; align-items: center; justify-content: center;
+        }
+        .overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6); }
+        .login-card { position: relative; width: 90%; max-width: 400px; color: white; padding: 20px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+        h1 { font-size: 32px; margin-bottom: 30px; text-align: center; }
+        .input-group { background: rgba(255, 255, 255, 0.2); border-radius: 30px; padding: 12px 20px; margin-bottom: 20px; display: flex; align-items: center; }
+        .input-group input { background: none; border: none; color: white; width: 100%; outline: none; margin-left: 10px; font-size: 15px; }
+        .btn-login { width: 100%; padding: 15px; background: #0d47a1; border: none; border-radius: 30px; color: white; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
+        .btn-login:hover { background: #1565c0; }
+        p { text-align: center; margin-top: 20px; font-size: 14px; }
+        a { color: #4fc3f7; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="login-card">
+        <h1>Log In</h1>
+        
+        <div class="input-group">
+            <span>✉️</span>
+            <input type="email" id="email" placeholder="Email လိပ်စာ ရိုက်ထည့်ပါ">
+        </div>
+
+        <div class="input-group">
+            <span>🔒</span>
+            <input type="password" id="password" placeholder="Password ရိုက်ထည့်ပါ">
+        </div>
+
+        <button id="loginBtn" class="btn-login">Log In</button>
+
+        <p>အကောင့်မရှိသေးဘူးလား? <a href="register.html">Register လုပ်ရန်</a></p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // သင့်ရဲ့ Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyC_h1U5C2PWZgijCdgOBR8noVZGpCE6RMc",
+            authDomain: "global-market-mall.firebaseapp.com",
+            projectId: "global-market-mall",
+            storageBucket: "global-market-mall.firebasestorage.app",
+            messagingSenderId: "940088052682",
+            appId: "1:940088052682:web:420dfa92084d07a3c31d33"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('loginBtn').addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                alert("Login အောင်မြင်ပါသည်!");
+                window.location.href = "index.html"; // Login အောင်မြင်ရင် Home Page ကို သွားမယ်
+            } catch (error) {
+                alert("အမှားရှိနေပါသည်: " + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
