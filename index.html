@@ -98,15 +98,16 @@
   // အကယ်၍ Analytics သုံးချင်ရင် ဒါကိုပါ ထည့်ပါ
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
 
-  // သင့်ရဲ့ Firebase Configuration (ဒါကို သင့်ပုံထဲကအတိုင်း ပြန်ဖြည့်ပေးရပါမယ်)
-  const firebaseConfig = {
-    apiKey: "သင့်ရဲ့_API_KEY", 
-    authDomain: "global-market-mall.firebaseapp.com",
-    projectId: "global-market-mall",
-    storageBucket: "global-market-mall.appspot.com",
-    messagingSenderId: "940088052682",
-    appId: "1:940088052682:web:420dfa92084d07a3c31d33"
-  };
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyC_h1U5C2PWZgijCdgOBR8noVZGpCE6RMc",
+  authDomain: "global-market-mall.firebaseapp.com",
+  projectId: "global-market-mall",
+  storageBucket: "global-market-mall.firebasestorage.app",
+  messagingSenderId: "940088052682",
+  appId: "1:940088052682:web:420dfa92084d07a3c31d33",
+  measurementId: "G-D0QDFW3SBP"
+};
 
   // Firebase ကို စတင် အသက်သွင်းခြင်း
   const app = initializeApp(firebaseConfig);
@@ -116,4 +117,5 @@
 </script>
 </body>
 </html>
+
 
