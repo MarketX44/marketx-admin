@@ -3,49 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In | Global Mall</title>
-    <style>
-        body {
-            margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif;
-            background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070') no-repeat center center fixed;
-            background-size: cover; height: 100vh; display: flex; align-items: center; justify-content: center;
-        }
-        .overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6); }
-        .login-card { position: relative; width: 90%; max-width: 400px; color: white; padding: 20px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-        h1 { font-size: 32px; margin-bottom: 30px; text-align: center; }
-        .input-group { background: rgba(255, 255, 255, 0.2); border-radius: 30px; padding: 12px 20px; margin-bottom: 20px; display: flex; align-items: center; }
-        .input-group input { background: none; border: none; color: white; width: 100%; outline: none; margin-left: 10px; font-size: 15px; }
-        .btn-login { width: 100%; padding: 15px; background: #0d47a1; border: none; border-radius: 30px; color: white; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        .btn-login:hover { background: #1565c0; }
-        p { text-align: center; margin-top: 20px; font-size: 14px; }
-        a { color: #4fc3f7; text-decoration: none; }
-    </style>
+    <title>Login | ShopUnion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="overlay"></div>
-    <div class="login-card">
-        <h1>Log In</h1>
-        
-        <div class="input-group">
-            <span>✉️</span>
-            <input type="email" id="email" placeholder="Email လိပ်စာ ရိုက်ထည့်ပါ">
+<body class="bg-[#0f172a] text-white flex items-center justify-center h-screen p-6">
+
+    <div class="bg-[#1e293b] p-8 rounded-3xl shadow-2xl w-full max-w-md border border-slate-700">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-500">ShopUnion</h1>
+            <p class="text-slate-400 mt-2">Please sign in to your account</p>
         </div>
 
-        <div class="input-group">
-            <span>🔒</span>
-            <input type="password" id="password" placeholder="Password ရိုက်ထည့်ပါ">
+        <div class="space-y-5">
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
+                <input type="email" id="logEmail" placeholder="example@gmail.com" 
+                       class="w-full p-4 rounded-xl bg-[#0f172a] border border-slate-600 focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-300 mb-1">Password</label>
+                <input type="password" id="logPassword" placeholder="••••••••" 
+                       class="w-full p-4 rounded-xl bg-[#0f172a] border border-slate-600 focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
+            </div>
+
+            <button id="logBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition duration-300 transform hover:scale-[1.01]">
+                Log In
+            </button>
         </div>
 
-        <button id="loginBtn" class="btn-login">Log In</button>
-
-        <p>အကောင့်မရှိသေးဘူးလား? <a href="register.html">Register လုပ်ရန်</a></p>
+        <p class="mt-6 text-center text-slate-400 text-sm">
+            Don't have an account? <a href="register.html" class="text-blue-500 hover:underline font-semibold">Register here</a>
+        </p>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // သင့်ရဲ့ Firebase Config
+        // Firebase Configuration (သင့် Project အချက်အလက်များ)
         const firebaseConfig = {
             apiKey: "AIzaSyC_h1U5C2PWZgijCdgOBR8noVZGpCE6RMc",
             authDomain: "global-market-mall.firebaseapp.com",
@@ -58,18 +54,33 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        document.getElementById('loginBtn').addEventListener('click', async () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        document.getElementById('logBtn').onclick = async () => {
+            // .trim() က Email ရဲ့ ရှေ့နောက်မှာ ပါလာနိုင်တဲ့ space တွေကို ဖြတ်ထုတ်ပေးတယ်
+            const email = document.getElementById('logEmail').value.trim();
+            const pass = document.getElementById('logPassword').value;
+
+            if (!email || !pass) {
+                alert("Please fill in all fields.");
+                return;
+            }
 
             try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                alert("Login အောင်မြင်ပါသည်!");
-                window.location.href = "index.html"; // Login အောင်မြင်ရင် Home Page ကို သွားမယ်
+                await signInWithEmailAndPassword(auth, email, pass);
+                alert("Login Successful!");
+                window.location.href = "index.html"; 
             } catch (error) {
-                alert("အမှားရှိနေပါသည်: " + error.message);
+                // Error တွေကို ပိုပြီး ရှင်းရှင်းလင်းလင်း ပြပေးဖို့
+                if (error.code === 'auth/invalid-email') {
+                    alert("The email address format is incorrect. (e.g., name@gmail.com)");
+                } else if (error.code === 'auth/user-not-found') {
+                    alert("No account found with this email.");
+                } else if (error.code === 'auth/wrong-password') {
+                    alert("Incorrect password. Please try again.");
+                } else {
+                    alert("Error: " + error.message);
+                }
             }
-        });
+        };
     </script>
 </body>
 </html>
