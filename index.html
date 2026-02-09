@@ -3,68 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | ShopUnion</title>
+    <title>ShopUnion | Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .bottom-nav-active { color: #3b82f6; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
 </head>
-<body class="bg-[#0f172a] text-white font-sans pb-20">
+<body class="bg-[#0f172a] text-white font-sans pb-24">
 
-    <nav class="bg-[#1e293b] p-5 shadow-lg flex justify-between items-center border-b border-slate-700">
-        <h1 class="text-xl font-bold text-blue-500 tracking-wider">SHOPUNION</h1>
-        <div class="flex items-center gap-3">
-            <span id="userEmail" class="text-xs text-slate-400">Loading...</span>
-            <button onclick="logout()" class="text-red-400 hover:text-red-300 text-sm font-semibold">Logout</button>
+    <div id="home" class="tab-content active">
+        <div class="p-6 text-center">
+            <h1 class="text-3xl font-black text-blue-500 mb-2">ShopUnion</h1>
+            <div class="w-full h-40 flex justify-center items-center bg-[#1e293b] rounded-3xl overflow-hidden border border-slate-700">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3ZidXF4ZzRndmN4ZzRndmN4ZzRndmN4ZzRndmN4ZzRndmN4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/vARoo7720U8N2/giphy.gif" alt="Shopping Animation" class="h-32">
+            </div>
         </div>
-    </nav>
 
-    <div class="p-6">
-        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
-            <div class="relative z-10">
-                <p class="text-blue-100 text-sm uppercase tracking-widest font-semibold mb-2">Total Assets</p>
-                <h2 id="userBalance" class="text-5xl font-black text-white">$ 0.00</h2>
-                <div class="flex gap-4 mt-6">
-                    <button class="bg-white/20 hover:bg-white/30 px-6 py-2 rounded-full text-sm font-bold backdrop-blur-md transition">Deposit</button>
-                    <button class="bg-white/20 hover:bg-white/30 px-6 py-2 rounded-full text-sm font-bold backdrop-blur-md transition">Withdraw</button>
+        <div class="px-6 mb-6">
+            <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-blue-500"></i> Today's Performance
+            </h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-[#1e293b] p-5 rounded-3xl border border-slate-700 shadow-xl">
+                    <p class="text-slate-400 text-xs">Today's Profit</p>
+                    <p id="todayProfit" class="text-green-400 font-bold text-xl">+$ 0.00</p>
+                </div>
+                <div class="bg-[#1e293b] p-5 rounded-3xl border border-slate-700">
+                    <p class="text-slate-400 text-xs">Turnover</p>
+                    <p id="turnover" class="text-blue-400 font-bold text-xl">$ 0.00</p>
+                </div>
+                <div class="bg-[#1e293b] p-5 rounded-3xl border border-slate-700">
+                    <p class="text-slate-400 text-xs">Today's Orders</p>
+                    <p id="orderCount" class="text-orange-400 font-bold text-xl">0</p>
+                </div>
+                <div class="bg-[#1e293b] p-5 rounded-3xl border border-slate-700">
+                    <p class="text-slate-400 text-xs">Credit Score</p>
+                    <p id="creditScore" class="text-purple-400 font-bold text-xl">10 / 10</p>
                 </div>
             </div>
-            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
         </div>
-    </div>
 
-    <div class="grid grid-cols-2 gap-4 px-6 mb-8">
-        <div class="bg-[#1e293b] p-5 rounded-3xl border border-slate-700">
-            <p class="text-slate-400 text-xs">Today's Profit</p>
-            <p class="text-green-400 font-bold text-lg">+$ 0.00</p>
-        </div>
-        <div class="bg-[#1e293b] p-5 rounded-3xl border border-slate-700">
-            <p class="text-slate-400 text-xs">Completed Orders</p>
-            <p class="text-blue-400 font-bold text-lg">0 / 50</p>
-        </div>
-    </div>
-
-    <div class="px-6 text-center">
-        <div class="bg-[#1e293b] p-10 rounded-[2.5rem] border border-slate-700 shadow-xl">
-            <div class="w-24 h-24 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-500/30">
-                <i class="fa-solid fa-cart-shopping text-3xl text-blue-500"></i>
+        <div class="px-6 mb-6">
+            <div onclick="switchTab('store')" class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 rounded-3xl flex justify-between items-center cursor-pointer shadow-lg active:scale-95 transition">
+                <div>
+                    <h4 class="text-xl font-bold">Product Selection</h4>
+                    <p class="text-blue-200 text-sm">Choose products for your store</p>
+                </div>
+                <i class="fa-solid fa-plus-circle text-3xl"></i>
             </div>
-            <h3 class="text-2xl font-bold mb-2">Order Matching</h3>
-            <p class="text-slate-400 text-sm mb-6 px-4">Match global merchant orders and earn high commissions instantly.</p>
-            <button onclick="startGrabbing()" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black text-lg shadow-lg shadow-blue-500/20 active:scale-95 transition">
-                START GRABBING
+        </div>
+    </div>
+
+    <div id="store" class="tab-content px-6 pt-6">
+        <h3 class="text-2xl font-bold mb-6">Select Categories</h3>
+        <div class="grid grid-cols-2 gap-4">
+            <button class="bg-[#1e293b] p-6 rounded-3xl border border-slate-700 hover:border-blue-500 transition">Women Clothing</button>
+            <button class="bg-[#1e293b] p-6 rounded-3xl border border-slate-700 hover:border-blue-500 transition">Men Clothing</button>
+            <button class="bg-[#1e293b] p-6 rounded-3xl border border-slate-700 hover:border-blue-500 transition">Watch & Jewelry</button>
+            <button class="bg-[#1e293b] p-6 rounded-3xl border border-slate-700 hover:border-blue-500 transition">Electronics</button>
+        </div>
+        <div class="mt-8">
+            <h4 class="font-bold text-slate-400 mb-4">Your Selected Products</h4>
+            <div id="selectedProductsList" class="text-sm text-slate-500 text-center py-10">No products selected yet.</div>
+        </div>
+    </div>
+
+    <div id="orders" class="tab-content px-6 pt-6">
+        <h3 class="text-2xl font-bold mb-6">Order Processing</h3>
+        <div class="bg-[#1e293b] p-8 rounded-[2.5rem] border border-slate-700 text-center">
+            <i class="fa-solid fa-box-open text-5xl text-blue-500 mb-4"></i>
+            <p class="text-slate-300 mb-6">Ready to pick up new orders?</p>
+            <button onclick="pickUpOrder()" class="w-full bg-blue-600 py-4 rounded-2xl font-black text-lg active:scale-95 transition">
+                PICK UP ORDER
             </button>
         </div>
     </div>
 
-    <div class="fixed bottom-0 left-0 right-0 bg-[#1e293b] p-4 flex justify-around border-t border-slate-700 rounded-t-3xl">
-        <button class="text-blue-500 flex flex-col items-center"><i class="fa-solid fa-house"></i><span class="text-[10px] mt-1">Home</span></button>
-        <button class="text-slate-500 flex flex-col items-center"><i class="fa-solid fa-list-check"></i><span class="text-[10px] mt-1">Order</span></button>
-        <button class="text-slate-500 flex flex-col items-center"><i class="fa-solid fa-user"></i><span class="text-[10px] mt-1">Profile</span></button>
+    <div id="wallet" class="tab-content px-6 pt-6">
+        <div class="bg-[#1e293b] p-8 rounded-[2.5rem] border border-slate-700 mb-6">
+            <div class="mb-6">
+                <p class="text-slate-400 text-sm mb-1">Available Balance</p>
+                <h2 id="availBalance" class="text-4xl font-black text-blue-500">$ 0.00</h2>
+            </div>
+            <div class="mb-6">
+                <p class="text-slate-400 text-sm mb-1">Pending Balance</p>
+                <h2 class="text-2xl font-bold text-slate-300">$ 0.00</h2>
+            </div>
+            <div class="flex gap-3">
+                <button class="flex-1 bg-blue-600 py-3 rounded-xl font-bold">Recharge</button>
+                <button class="flex-1 border border-slate-600 py-3 rounded-xl font-bold">Withdraw</button>
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <div class="bg-[#1e293b] p-4 rounded-2xl flex justify-between items-center"><span class="flex items-center gap-3"><i class="fa-solid fa-user text-blue-500"></i> Profile</span> <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i></div>
+            <div class="bg-[#1e293b] p-4 rounded-2xl flex justify-between items-center"><span class="flex items-center gap-3"><i class="fa-solid fa-gear text-blue-500"></i> Withdrawal Setting</span> <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i></div>
+            <div class="bg-[#1e293b] p-4 rounded-2xl flex justify-between items-center"><span class="flex items-center gap-3"><i class="fa-solid fa-file-invoice-dollar text-blue-500"></i> Financial Statements</span> <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i></div>
+            <div class="bg-[#1e293b] p-4 rounded-2xl flex justify-between items-center"><span class="flex items-center gap-3"><i class="fa-solid fa-star text-blue-500"></i> Credit Application</span> <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i></div>
+            <div class="bg-[#1e293b] p-4 rounded-2xl flex justify-between items-center"><span class="flex items-center gap-3"><i class="fa-solid fa-crown text-blue-500"></i> Store Level</span> <i class="fa-solid fa-chevron-right text-xs text-slate-500"></i></div>
+            <button onclick="logout()" class="w-full bg-red-500/10 text-red-500 p-4 rounded-2xl font-bold mt-4">Sign Out</button>
+        </div>
+    </div>
+
+    <div class="fixed bottom-0 left-0 right-0 bg-[#1e293b] p-4 flex justify-around border-t border-slate-700 rounded-t-[2.5rem] shadow-2xl z-50">
+        <button onclick="switchTab('home')" class="nav-link flex flex-col items-center bottom-nav-active" data-tab="home"><i class="fa-solid fa-house"></i><span class="text-[10px] mt-1">Home</span></button>
+        <button onclick="switchTab('store')" class="nav-link flex flex-col items-center text-slate-500" data-tab="store"><i class="fa-solid fa-store"></i><span class="text-[10px] mt-1">Store</span></button>
+        <button onclick="switchTab('orders')" class="nav-link flex flex-col items-center text-slate-500" data-tab="orders"><i class="fa-solid fa-box"></i><span class="text-[10px] mt-1">Pick Up</span></button>
+        <button onclick="switchTab('wallet')" class="nav-link flex flex-col items-center text-slate-500" data-tab="wallet"><i class="fa-solid fa-wallet"></i><span class="text-[10px] mt-1">Account</span></button>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyC_h1U5C2PWZgijCdgOBR8noVZGpCE6RMc",
@@ -77,40 +131,50 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Check Login Status and Fetch Data
+        let currentBalance = 0;
+
+        // Tab Switching Logic
+        window.switchTab = (tabId) => {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('bottom-nav-active');
+                link.classList.add('text-slate-500');
+            });
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('bottom-nav-active');
+        };
+
+        // Auth & Data Load
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                document.getElementById('userEmail').innerText = user.email;
-                
-                // Firestore ထဲက User Data ကိုယူမယ်
                 const userRef = doc(db, "users", user.uid);
                 const docSnap = await getDoc(userRef);
-
                 if (docSnap.exists()) {
                     const data = docSnap.data();
-                    document.getElementById('userBalance').innerText = "$ " + data.balance.toFixed(2);
-                } else {
-                    console.log("No user data found in Firestore.");
-                    document.getElementById('userBalance').innerText = "$ 0.00";
+                    currentBalance = data.balance || 0;
+                    document.getElementById('availBalance').innerText = "$ " + currentBalance.toFixed(2);
+                    document.getElementById('creditScore').innerText = (data.credit || 10) + " / 10";
+                    document.getElementById('orderCount').innerText = data.todayOrders || 0;
+                    document.getElementById('todayProfit').innerText = "+$ " + (data.todayProfit || 0).toFixed(2);
+                    document.getElementById('turnover').innerText = "$ " + (data.turnover || 0).toFixed(2);
                 }
             } else {
-                // Login မဝင်ထားရင် Login Page ကိုပြန်ပို့မယ်
                 window.location.href = "login.html";
             }
         });
 
-        // Logout Function
-        window.logout = () => {
-            signOut(auth).then(() => {
-                window.location.href = "login.html";
-            });
+        // Pick Up Order Logic
+        window.pickUpOrder = async () => {
+            if (currentBalance <= 0) {
+                alert("Insufficient balance to pick up orders!");
+                return;
+            }
+            alert("Matching with global merchant... Success!");
+            // ဒီနေရာမှာ Order Logic အသေးစိတ် ထည့်သွင်းရပါမယ်။
         };
 
-        // Grab Button Logic (Placeholder)
-        window.startGrabbing = () => {
-            alert("Searching for orders... Please wait.");
-            // ဒီနေရာမှာ Order Matching Logic တွေကို နောက်တဆင့်မှာ ထည့်ပေးပါမယ်
-        };
+        window.logout = () => signOut(auth).then(() => window.location.href = "login.html");
     </script>
 </body>
 </html>
