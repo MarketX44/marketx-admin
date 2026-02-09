@@ -1,81 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In | EX Mall</title>
+    <title>Market-X | Home</title>
     <style>
-        body {
-            margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif;
-            background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070') no-repeat center center fixed;
-            background-size: cover; height: 100vh; display: flex; align-items: center; justify-content: center;
-        }
-        .overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6); }
-        .login-card {
-            position: relative; width: 90%; max-width: 400px; color: white; padding: 20px;
-        }
-        h1 { font-size: 32px; margin-bottom: 30px; }
-        .tabs { display: flex; gap: 20px; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.2); }
-        .tab { padding-bottom: 10px; cursor: pointer; color: #aaa; font-size: 16px; }
-        .tab.active { color: white; border-bottom: 2px solid #0d47a1; font-weight: bold; }
-        
-        .input-group { background: rgba(255, 255, 255, 0.1); border-radius: 30px; border: 1px solid rgba(255,255,255,0.3); padding: 12px 20px; margin-bottom: 20px; display: flex; align-items: center; }
-        .input-group input { background: none; border: none; color: white; width: 100%; outline: none; margin-left: 10px; font-size: 15px; }
-        
-        .btn-login { width: 100%; padding: 15px; background: #0d47a1; border: none; border-radius: 30px; color: white; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 20px; }
-        .footer-links { display: flex; justify-content: space-between; margin-top: 15px; font-size: 13px; color: #ddd; }
-        .online-service { text-align: center; margin-top: 40px; color: #aaa; font-size: 13px; cursor: pointer; }
+        body { background: #121212; color: white; font-family: sans-serif; margin: 0; }
+        .nav { background: #1f1f1f; padding: 20px; display: flex; justify-content: space-between; }
+        .balance-card { background: linear-gradient(45deg, #0d47a1, #1976d2); padding: 20px; margin: 20px; border-radius: 15px; }
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+        .product-card { background: #222; padding: 15px; border-radius: 10px; text-align: center; }
+        .grab-btn { background: #ff9800; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
-    <div class="login-card">
-        <h1>Log In</h1>
-        
-        <div class="tabs">
-            <div class="tab" onclick="switchTab('tel')">Telephone</div>
-            <div class="tab active" onclick="switchTab('mail')">Mail</div>
+    <div class="nav">
+        <span>Market-X Mall</span>
+        <span id="userEmail">Loading...</span>
+    </div>
+
+    <div class="balance-card">
+        <p>Total Assets</p>
+        <h1 id="userBalance">$0.00</h1>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100" alt="item">
+            <p>Smart Watch</p>
+            <p style="color: #4caf50;">$120.00</p>
+            <button class="grab-btn">Grab Order</button>
         </div>
-
-        <div id="mail-fields">
-            <div class="input-group">
-                <span>✉️</span>
-                <input type="email" id="email" placeholder="Please input your email">
-            </div>
-        </div>
-
-        <div class="input-group">
-            <span>🔒</span>
-            <input type="password" id="password" placeholder="Please enter password">
-            <span style="cursor:pointer">👁️</span>
-        </div>
-
-        <div class="footer-links">
-            <label><input type="checkbox"> Remember Password</label>
-            <a href="#" style="color:#ddd; text-decoration:none">Forgot Password?</a>
-        </div>
-
-        <p style="text-align:center; margin-top:25px">
-            <a href="register.html" style="color:white; text-decoration:none">Register an account</a>
-        </p>
-
-        <button class="btn-login" onclick="handleLogin()">Log In</button>
-
-        <div class="online-service">
-            <div style="font-size:24px">🎧</div>
-            Online Service
+        <div class="product-card">
+            <img src="https://via.placeholder.com/100" alt="item">
+            <p>Wireless Earbuds</p>
+            <p style="color: #4caf50;">$85.00</p>
+            <button class="grab-btn">Grab Order</button>
         </div>
     </div>
 
-    <script>
-        function switchTab(type) {
-            alert(type + " login coming soon!");
-        }
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        function handleLogin() {
-            // Dashboard သို့ တန်းသွားရန် (နမူနာ)
-            window.location.href = "dashboard.html";
-        }
+        const firebaseConfig = {
+            apiKey: "AIzaSyC_h1U5C2PWZgijCdgOBR8noVZGpCE6RMc",
+            authDomain: "global-market-mall.firebaseapp.com",
+            projectId: "global-market-mall",
+            appId: "1:940088052682:web:420dfa92084d07a3c31d33"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                document.getElementById('userEmail').innerText = user.email;
+                const docSnap = await getDoc(doc(db, "users", user.uid));
+                if (docSnap.exists()) {
+                    document.getElementById('userBalance').innerText = "$" + docSnap.data().balance;
+                }
+            } else {
+                window.location.href = "login.html";
+            }
+        });
     </script>
 </body>
 </html>
