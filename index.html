@@ -93,5 +93,27 @@
         function toggleChat() { document.getElementById('chatBox').classList.toggle('hidden'); }
         initProducts();
     </script>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  // အကယ်၍ Analytics သုံးချင်ရင် ဒါကိုပါ ထည့်ပါ
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+  // သင့်ရဲ့ Firebase Configuration (ဒါကို သင့်ပုံထဲကအတိုင်း ပြန်ဖြည့်ပေးရပါမယ်)
+  const firebaseConfig = {
+    apiKey: "သင့်ရဲ့_API_KEY", 
+    authDomain: "global-market-mall.firebaseapp.com",
+    projectId: "global-market-mall",
+    storageBucket: "global-market-mall.appspot.com",
+    messagingSenderId: "940088052682",
+    appId: "1:940088052682:web:420dfa92084d07a3c31d33"
+  };
+
+  // Firebase ကို စတင် အသက်သွင်းခြင်း
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  
+  console.log("Firebase ချိတ်ဆက်မှု အောင်မြင်ပါသည်!");
+</script>
 </body>
 </html>
+
